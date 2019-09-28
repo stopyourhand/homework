@@ -1,0 +1,43 @@
+#服务启动端口
+server :
+  port : 8080
+
+#数据库配置
+spring:
+  datasource:
+    # 设置数据库相关
+    url: jdbc:mysql://localhost:3306/homework?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone = GMT
+    username: root
+    password: 123456
+    # 设置 c3p0 数据源
+    type: com.mchange.v2.c3p0.ComboPooledDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+  redis:
+    host: 127.0.0.1
+    #redis密码，没有密码的可以用～表示
+    password: ~
+    port: 6379
+mybatis:
+  # 设置 entity 的别名所在的包
+  type-aliases-package: com.csto.homework.entity
+  # 设置 mapper 接口对应 XMl 配置文件的路径
+  mapper-locations: classpath:mapper/*/*.xml
+
+# 日志输出
+#logging:
+#  file: D:/boot.log
+
+
+
+

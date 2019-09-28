@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csto.homework.mapper.user.UserLoginMapper">
+    <!--数据库表homework_user_login 与 UserLogin的映射-->
+    <resultMap id="userLogin" type="com.csto.homework.entity.user.UserLogin">
+        <id column="login_id" property="loginId"/>
+        <result column="login_account" property="loginAccount"/>
+        <result column="login_password" property="loginPassword"/>
+        <result column="login_user_type" property="loginUserType"/>
+        <result column="user_info_id" property="userInfoId"/>
+    </resultMap>
+
+    <!--根据学生或者教工id获取密码-->
+    <select id="getUserPassword" parameterType="Integer" resultType="String">
+        SELECT login_password FROM homework_user_login
+              WHERE login_id = #{loginId}
+    </select>
+
+
+</mapper>
