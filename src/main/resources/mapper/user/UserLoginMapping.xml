@@ -13,13 +13,13 @@
     <!--根据学生或者教工id获取密码-->
     <select id="getUserPassword" parameterType="String" resultType="String">
         SELECT login_password FROM homework_user_login
-              WHERE login_account = #{account}
+              WHERE login_account = #{loginAccount}
     </select>
 
     <!--添加新的用户到数据库中-->
     <insert id="insertUserLogin" parameterType="com.csto.homework.entity.user.UserLogin">
         INSERT INTO homework_user_login(login_account,login_password,login_user_type,user_info_id)
-              VALUES(#{account},#{password},#{userType},#{infoId})
+              VALUES(#{loginAccount},#{loginPassword},#{loginUserType},#{userInfoId})
     </insert>
 
 

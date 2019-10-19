@@ -18,7 +18,7 @@ public class UserConfig {
         return new UserLogin();
     }
 
-    @Bean("UserLogin")
+    @Bean("UserInfo")
     public UserInfo getUserInfo(){
         return new UserInfo();
     }

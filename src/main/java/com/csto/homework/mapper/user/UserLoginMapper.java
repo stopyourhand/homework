@@ -26,6 +26,6 @@ public interface UserLoginMapper {
      * @param userLogin
      * @return
      */
-    int insertUserLogin(UserLogin userLogin);
+    Integer insertUserLogin(UserLogin userLogin);
 
 }

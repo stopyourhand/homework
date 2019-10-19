@@ -21,11 +21,18 @@ public class UserInfoServiceImpl implements UserInfoService {
     private UserInfoMapper userInfoMapper;
 
     /**
+     * 根据用户账号获取用户信息的对应的id
+     */
+    public Integer getUserInfoId(String account){
+        return userInfoMapper.getUserInfoId(account);
+    }
+
+    /**
      * 添加新的用户信息到数据库中
      * @param userLogin
      * @return
      */
-    public int insertUserInfo(UserInfo userInfo){
+    public Integer insertUserInfo(UserInfo userInfo){
         return userInfoMapper.insertUserInfo(userInfo);
     }
 }
