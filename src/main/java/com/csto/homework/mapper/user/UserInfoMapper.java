@@ -15,10 +15,15 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserInfoMapper {
 
     /**
+     * 根据用户账号获取用户信息的对应的id
+     */
+    Integer getUserInfoId(String account);
+
+    /**
      * 添加新的用户信息到数据库中
      * @param userLogin
      * @return
      */
-    int insertUserInfo(UserInfo userInfo);
+    Integer insertUserInfo(UserInfo userInfo);
 
 }

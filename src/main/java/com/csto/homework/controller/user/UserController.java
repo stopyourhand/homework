@@ -1,6 +1,7 @@
 package com.csto.homework.controller.user;
 
 import com.csto.homework.entity.user.UserInfo;
+import com.csto.homework.entity.user.UserLogin;
 import com.csto.homework.service.user.UserInfoService;
 import com.csto.homework.service.user.UserLoginService;
 import com.csto.homework.util.InterfaceAnalysisUtil;
@@ -65,17 +66,16 @@ public class UserController {
             //使用学校结口的工具类
             InterfaceAnalysisUtil interfaceAnalysisUtil = new InterfaceAnalysisUtil();
             //调用学校接口进行登录
-            String accounts = String.valueOf(account);
-            resultMap = interfaceAnalysisUtil.analysis(accounts, passWord);
+            resultMap = interfaceAnalysisUtil.analysis(account, passWord);
             //添加学生账号到数据库
 
             //判断学生或教师是否登录成功0代表失败，1代表成功
-            int flag = (int)resultMap.get("flag");
-            if (flag == 1){
+            String flag = (String)resultMap.get("flag");
+            if ("1".equals(flag)){
                 //获取用户信息的对象
                 UserInfo userInfo = (UserInfo)SpringUtil.getBean("UserInfo");
                 //设置用户账号
-                userInfo.setUserAccount(String.valueOf(account));
+                userInfo.setUserAccount(account);
 
                 //获取用户真实姓名并且设置用户名称
                 String realName = (String)resultMap.get("userrealname");
@@ -83,6 +83,7 @@ public class UserController {
                 //获取用户所在学院名称并且设置学院名称
                 String college = (String)resultMap.get("userdwmc");
                 userInfo.setUserCollege(college);
+                System.out.println(userInfo.toString());
 
                 int resultInfo = userInfoService.insertUserInfo(userInfo);
                 if (resultInfo <= 0){
@@ -90,9 +91,34 @@ public class UserController {
                     resultMap.put("msg", "数据库插入信息错误!");
                 }
 
+                //从Spring容器中获取用户登录对象
+                UserLogin userLogin = (UserLogin) SpringUtil.getBean("UserLogin");
+                //获取用户信息对应
+                int userInfoId = userInfoService.getUserInfoId(account);
+                userLogin.setUserInfoId(userInfoId);
+                //获取用户登录类型1为教师，2为学生
+                Integer userType = Integer.parseInt((String)resultMap.get("usertype"));
+                userLogin.setLoginUserType(userType);
+                //获取用户账号和密码
+                userLogin.setLoginAccount(account);
+                userLogin.setLoginPassword(passWord);
+
+                int resultLogin = userLoginService.insertUserLogin(userLogin);
+                if (resultLogin <= 0){
+                    resultMap.put("judge", false);
+                    resultMap.put("msg", "数据库插入信息错误!");
+                }
+
+                resultMap.put("judge", true);
+                resultMap.put("msg", "登录成功!");
+
+            }else {
+                resultMap.put("judge", false);
+                resultMap.put("msg", "密码输入有误!");
+                return resultMap;
             }
 
-            return resultMap;
+
         }else if (!userPassWord.equals(passWord)){
             resultMap.put("judge", false);
             resultMap.put("msg", "密码输入有误!");
@@ -100,7 +126,7 @@ public class UserController {
         }
 
         //判断用户密码是否正确，依次来判断是否登录成功
-        if (userPassWord.equals(passWord)) {
+        if (passWord.equals(userPassWord)) {
             resultMap.put("judge", true);
             resultMap.put("msg", "登录成功!");
             return resultMap;
