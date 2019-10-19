@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csto.homework.mapper.course.CourseInfoMapper">
+
+    <!--//老师创建课程-->
+    <!--int createCourse(CourseInfo courseInfo);-->
+    <insert id="createCourse" parameterType="CourseInfo">
+        insert info homework_course_info (user_info_id,course_name,create_course_time)
+                                    value (#{userInfoId},#{courseName},#{createCourseTime})
+    </insert>
+
+</mapper>

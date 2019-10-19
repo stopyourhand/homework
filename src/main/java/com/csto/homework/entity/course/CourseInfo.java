@@ -19,10 +19,11 @@ public class CourseInfo {
     private Integer userInfoId;
     /** 课程名称 */
     private String courseName;
-    /** 创建课程时间 */
+    /** 创建课程时间*/
     private String createCourseTime;
-    /** 是否删除课程,0：否 1：是，默认0 */
-    private Integer deleteCourse;
-    /** 删除课程时间 */
+    /**是否删除课程	0否1是默认0*/
+    private Integer isDeleteCourse;
+    /**删除课程时间*/
     private String deleteCourseTime;
+
 }

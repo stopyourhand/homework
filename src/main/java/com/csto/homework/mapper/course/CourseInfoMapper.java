@@ -1,8 +1,9 @@
 package com.csto.homework.mapper.course;
 
+import com.csto.homework.entity.course.CourseInfo;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.Map;
+
 
 /**
  * 处理课程信息的数据库层
@@ -14,5 +15,7 @@ import java.util.Map;
 @Mapper
 public interface CourseInfoMapper {
 
+    //老师创建课程
+    int createCourse(CourseInfo courseInfo);
 
 }
