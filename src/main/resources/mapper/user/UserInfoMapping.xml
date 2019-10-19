@@ -10,16 +10,12 @@
         <result column="user_info_id" property="userInfoId"/>
     </resultMap>
 
-    <!--根据学生或者教工id获取密码-->
-    <select id="getUserPassword" parameterType="String" resultType="String">
-        SELECT login_password FROM homework_user_login
-              WHERE login_account = #{account}
-    </select>
+    <select id="getUserInfoId" parameterType="String"
 
     <!--添加新的用户到数据库中-->
-    <insert id="insertUserLogin" parameterType="com.csto.homework.entity.user.UserLogin">
-        INSERT INTO homework_user_login(login_account,login_password,login_user_type,user_info_id)
-              VALUES(#{account},#{password},#{userType},#{infoId})
+    <insert id="insertUserInfo" parameterType="com.csto.homework.entity.user.UserInfo">
+        INSERT INTO homework_user_info(user_account,user_real_name,user_college)
+              VALUES(#{account},#{name},#{college})
     </insert>
 
 

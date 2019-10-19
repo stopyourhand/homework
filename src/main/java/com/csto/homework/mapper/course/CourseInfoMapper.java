@@ -13,17 +13,6 @@ import java.util.Map;
  */
 @Mapper
 public interface CourseInfoMapper {
-    /**
-     * 获取在指定时间内(七天)不同类型商品的交易数量
-     * @param parameterMap
-     * @return
-     */
-    Integer countSellNumberByCommodity(Map parameterMap);
 
-    /**
-     * 获取所有交易完成的商品的数量
-     * @return
-     */
-    Integer countAllSellGoodsNumber();
 
 }
