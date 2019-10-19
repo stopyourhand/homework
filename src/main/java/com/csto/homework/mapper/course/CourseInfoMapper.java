@@ -1,8 +1,9 @@
 package com.csto.homework.mapper.course;
 
+import com.csto.homework.entity.course.CourseInfo;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.Map;
+
 
 /**
  * 处理课程信息的数据库层
@@ -13,17 +14,8 @@ import java.util.Map;
  */
 @Mapper
 public interface CourseInfoMapper {
-    /**
-     * 获取在指定时间内(七天)不同类型商品的交易数量
-     * @param parameterMap
-     * @return
-     */
-    Integer countSellNumberByCommodity(Map parameterMap);
 
-    /**
-     * 获取所有交易完成的商品的数量
-     * @return
-     */
-    Integer countAllSellGoodsNumber();
+    //老师创建课程
+    int createCourse(CourseInfo courseInfo);
 
 }
