@@ -1,5 +1,6 @@
 package com.csto.homework.mapper.user;
 
+import com.csto.homework.entity.user.UserLogin;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Map;
@@ -18,7 +19,13 @@ public interface UserLoginMapper {
      * @param loginId
      * @return
      */
-    String getUserPassword(int loginId);
+    String getUserPassword(String account);
 
+    /**
+     * 添加新的用户到数据库中
+     * @param userLogin
+     * @return
+     */
+    int insertUserLogin(UserLogin userLogin);
 
 }

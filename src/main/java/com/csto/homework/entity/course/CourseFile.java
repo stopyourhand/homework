@@ -22,6 +22,12 @@ public class CourseFile {
     private String courseFileName;
     /** 上传的文件名称编码 */
     private String courseFileCode;
+    /** 文件上传时间 */
+    private String fileUploadTime;
+    /** 是否删除文件，0：否 1：是，默认0 */
+    private Integer deleteFile;
+    /** 文件删除时间 */
+    private String fileDeleteTime;
     /**
      * 上传文件类型 ->
      * 0:教学文档 1:教学案例 2:教学资源 3:其他(授课资源)

@@ -1,5 +1,6 @@
 package com.csto.homework.service.impl.user;
 
+import com.csto.homework.entity.user.UserLogin;
 import com.csto.homework.mapper.user.UserLoginMapper;
 import com.csto.homework.service.user.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,16 @@ public class UserLoginServiceImpl implements UserLoginService {
      * @param loginId
      * @return
      */
-    public String getUserPassword(int loginId){
-        return userLoginMapper.getUserPassword(loginId);
+    public String getUserPassword(String account){
+        return userLoginMapper.getUserPassword(account);
+    }
+
+    /**
+     * 添加新的用户到数据库中
+     * @param userLogin
+     * @return
+     */
+    public int insertUserLogin(UserLogin userLogin){
+        return userLoginMapper.insertUserLogin(userLogin);
     }
 }
