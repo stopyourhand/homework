@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.csto.homework.mapper.user.UserLoginMapper">
+<mapper namespace="com.csto.homework.mapper.user.UserInfoMapper">
     <!--数据库表homework_user_login 与 UserLogin的映射-->
     <resultMap id="userLogin" type="com.csto.homework.entity.user.UserLogin">
         <id column="login_id" property="loginId"/>
@@ -10,7 +10,7 @@
         <result column="user_info_id" property="userInfoId"/>
     </resultMap>
 
-    <select id="getUserInfoId" parameterType="String"
+    <!--<select id="getUserInfoId" parameterType="String"-->
 
     <!--添加新的用户到数据库中-->
     <insert id="insertUserInfo" parameterType="com.csto.homework.entity.user.UserInfo">

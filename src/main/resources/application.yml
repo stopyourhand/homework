@@ -11,7 +11,8 @@ spring:
     password: 123456
     # 设置 c3p0 数据源
     type: com.mchange.v2.c3p0.ComboPooledDataSource
-    driver-class-name: com.mysql.cj.jdbc.Driver
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.jdbc.Driver
     maxActive: 20
     initialSize: 1
     maxWait: 60000

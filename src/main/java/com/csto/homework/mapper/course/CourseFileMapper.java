@@ -11,7 +11,7 @@ import java.util.Map;
  * @Date:created in 2019/9/24
  * @Version: V1.0
  */
-@Mapper
-public interface CourseFileMapper {
-
-}
+//@Mapper
+//public interface CourseFileMapper {
+//
+//}

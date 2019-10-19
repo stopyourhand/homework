@@ -5,7 +5,7 @@
     <!--//老师创建课程-->
     <!--int createCourse(CourseInfo courseInfo);-->
     <insert id="createCourse" parameterType="CourseInfo">
-        insert info homework_course_info (user_info_id,course_name,create_course_time)
+        insert into homework_course_info (user_info_id,course_name,create_course_time)
                                     value (#{userInfoId},#{courseName},#{createCourseTime})
     </insert>
 
