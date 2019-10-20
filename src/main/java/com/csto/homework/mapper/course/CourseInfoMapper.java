@@ -25,6 +25,9 @@ public interface CourseInfoMapper {
      */
     int createCourse(CourseInfo courseInfo);
 
+    //查询数据库中是否有该老师添加的课程名
+    int findCourseByCourseName(@Param("userInfoId") int uid, @Param("courseName") String courseName);
+
     /**
      * 根据老师姓名和课程名称获取对应课程信息列表
      * @param courseName
