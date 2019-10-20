@@ -44,6 +44,8 @@
         SELECT course_info_id, course_name FROM homework_course_info WHERE user_info_id = #{userInfoId}
     </select>
 
+
+
     <!--//修改课程名称-->
     <!--int updateCourseName(@Param("courseInfoId")int courseInfoId, @Param("courseName")String courseName);-->
     <update id="updateCourseName">

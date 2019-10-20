@@ -2,6 +2,7 @@ package com.csto.homework.service.course;
 
 import com.csto.homework.entity.course.CourseFile;
 import org.apache.ibatis.annotations.Param;
+import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -25,6 +26,7 @@ public interface CourseFileService {
      * @return
      */
     int getCourseResourcesNumber(int courseInfoId, int courseFileType);
+
 
 
 

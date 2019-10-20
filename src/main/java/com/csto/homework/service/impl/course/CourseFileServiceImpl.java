@@ -1,6 +1,5 @@
 package com.csto.homework.service.impl.course;
 
-import com.csto.homework.entity.course.CourseFile;
 import com.csto.homework.mapper.course.CourseFileMapper;
 import com.csto.homework.service.course.CourseFileService;
 import org.apache.ibatis.annotations.Param;
@@ -91,28 +90,30 @@ public class CourseFileServiceImpl implements CourseFileService {
      */
     @Override
     public int uploadFile(int courseInfoId, MultipartFile courseFile, int courseFileType) throws IOException {
-        String fileName = courseFile.getOriginalFilename();
+        String courseFileName = courseFile.getOriginalFilename();
         InputStream input = courseFile.getInputStream();
-        OutputStream out = new FileOutputStream("f://" + fileName);
+        OutputStream out = new FileOutputStream("f://"+courseFileName);
         byte[] bs = new byte[1024];
         int len = -1;
-        while ((len = input.read(bs)) != -1) {
+        while ((len = input.read(bs))!=-1) {
             out.write(bs, 0, len);
         }
         out.close();
         input.close();
         System.out.println("上传成功");
-        return 0;
-    }
-
-    /**
-     * 根据文档id删除指定文档
-     *
-     * @param courseFileId
-     * @return
-     */
-    @Override
-    public int deleteCourseFileById(int courseFileId){
-        return courseFileMapper.deleteCourseFileById(courseFileId);
+        /**
+         * @param courseInfoId 课程id
+         * @param courseFileName 上传文件名
+         * @param courseFileCode 文件编码
+         * @param fileUploadTime 上传时间
+         * @param courseFileType 上传类型
+         * @return
+         */
+        String courseFileCode = Math.abs(courseFileName.hashCode())+"";
+        System.out.println(courseFileCode);
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String fileUploadTime = simpleDateFormat.format(date);
+        return courseFileMapper.insertCourseFile(courseInfoId,courseFileName,courseFileCode,fileUploadTime,courseFileType);
     }
 }

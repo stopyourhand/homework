@@ -39,6 +39,7 @@ public interface CourseInfoService {
      */
     List<Map> listCourseByAccount(int userInfoId);
 
+
     /**
      * @param courseInfoId 课程id
      * @param courseName   修改的课程名称

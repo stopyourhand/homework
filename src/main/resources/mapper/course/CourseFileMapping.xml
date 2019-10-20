@@ -12,7 +12,7 @@
         <result column="file_delete_time" property="fileDeleteTime"/>
         <result column="course_file_type" property="courseFileType"/>
     </resultMap>
-    
+
     <!--根据课程编号获取课程的资源信息的统计-->
     <select id="getCourseResourcesNumber" resultType="int">
         SELECT COUNT(*) FROM homework_course_file
