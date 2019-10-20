@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -71,12 +74,21 @@ public class CourseInfoController {
     }
 
     /**
-     * 删除课程信息
-     * @param courseInfoId 课程id
-     * @return 删除行数
+     * 查询对应教师所开设的课程的教学资料
+     *
+     * @param request
+     * @return
      */
-    @DeleteMapping("/deleteCourse")
-    public Result deleteCourse(int courseInfoId){
-        return null;
+    @GetMapping(value = "/read")
+    public Result readResources(HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        String account = "9";//(String)session.getAttribute("account");
+
+        List<Map> list = courseInfoService.listCourseByAccount(Integer.parseInt(account));
+
+        return new Result(200,"查询成功",list);
     }
+
+
 }

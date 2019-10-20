@@ -2,7 +2,9 @@ package com.csto.homework.service.impl.course;
 
 import com.csto.homework.mapper.course.CourseFileMapper;
 import com.csto.homework.service.course.CourseFileService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,6 +15,8 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
 @Service
 public class CourseFileServiceImpl implements CourseFileService {
 
@@ -21,21 +25,66 @@ public class CourseFileServiceImpl implements CourseFileService {
 
 
     /**
-     * 陈兆东
      * 根据课程编号获取课程的资源信息的统计
+     *
      * @param courseInfoId
      * @param courseFileType
      * @return
      */
-    public int getCourseResourcesNumber(int courseInfoId,int courseFileType){
-        return courseFileMapper.getCourseResourcesNumber(courseInfoId,courseFileType);
+    @Override
+    public int getCourseResourcesNumber(int courseInfoId, int courseFileType) {
+        return courseFileMapper.getCourseResourcesNumber(courseInfoId, courseFileType);
+    }
+
+
+
+    /**
+     * 根据课程编号获取课程的资源信息的名称和编号
+     *
+     * @param courseInfoId
+     * @param courseFileType
+     * @return
+     */
+    @Override
+    public List<Map> listCourseResourcesName(int courseInfoId, int courseFileType) {
+        return courseFileMapper.listCourseResourcesName(courseInfoId, courseFileType);
+    }
+
+    /**
+     * 根据文件编号获取服务器上传文件后的编码
+     *
+     * @param courseFileId
+     * @return
+     */
+    @Override
+    public String getFileCodeByCourseFileId(@Param("courseFileId") int courseFileId) {
+        return courseFileMapper.getFileCodeByCourseFileId(courseFileId);
     }
 
 
     /**
-     * 教师上传文件
+     * 教师为课程创建文件夹
+     *
      * @param courseInfoId 课程id
-     * @param courseFile 上传文件
+     * @param folderName   文件夹名称列表
+     * @return 插入行数
+     */
+    @Override
+    public int createFolder(int courseInfoId, List<String> folderName) {
+        if (folderName.isEmpty()) {
+            return 0;
+        }
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String folderCreateTime = simpleDateFormat.format(date);
+        return courseFileMapper.createFolders(courseInfoId, folderName, folderCreateTime);
+    }
+
+    /**
+     * 教师上传文件
+     *
+     * @param courseInfoId   课程id
+     * @param courseFile     上传文件
      * @param courseFileType 上传类型
      * @return 是否上传成功
      */
