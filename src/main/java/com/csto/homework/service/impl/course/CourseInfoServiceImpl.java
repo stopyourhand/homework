@@ -24,6 +24,10 @@ public class CourseInfoServiceImpl implements CourseInfoService {
      */
     @Override
     public int createCourse(CourseInfo courseInfo) {
+        int code = courseInfoMapper.findCourseByCourseName(courseInfo.getUserInfoId(),courseInfo.getCourseName());
+        if(code != 0){
+            return -1;
+        }
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String createCourseTime = simpleDateFormat.format(date);
