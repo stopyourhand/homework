@@ -2,7 +2,9 @@ package com.csto.homework.service.course;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -15,12 +17,30 @@ import java.util.List;
 public interface CourseFileService {
 
     /**
+     * 陈兆东
+     * 根据课程编号获取课程的资源信息的统计
+     * @param courseInfoId
+     * @param courseFileType
+     * @return
+     */
+    int getCourseResourcesNumber(int courseInfoId,int courseFileType);
+
+    /**
      * 教师为课程创建文件夹
      * @param courseInfoId 课程id
      * @param folderName 文件夹名称列表
      * @return 插入行数
      */
     int createFolder(int courseInfoId, List<String> folderName);
+
+    /**
+     * 教师上传文件
+     * @param courseInfoId 课程id
+     * @param courseFile 上传文件
+     * @param courseFileType 上传类型
+     * @return 是否上传成功
+     */
+    int uploadFile(int courseInfoId, MultipartFile courseFile, int courseFileType) throws IOException;
 
 
 }

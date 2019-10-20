@@ -4,6 +4,9 @@ import com.csto.homework.entity.course.CourseInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+import java.util.Map;
+
 
 /**
  * 处理课程信息的数据库层
@@ -40,4 +43,5 @@ public interface CourseInfoMapper {
 
     //删除课程
     int deleteCourseById(int courseInfoId);
+
 }

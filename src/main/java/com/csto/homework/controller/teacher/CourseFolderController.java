@@ -1,4 +1,4 @@
-package com.csto.homework.controller.course;
+package com.csto.homework.controller.teacher;
 
 import com.csto.homework.dto.Result;
 import com.csto.homework.service.course.CourseFileService;

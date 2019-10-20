@@ -2,6 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.csto.homework.mapper.course.CourseFileMapper">
 
+    <!--根据课程编号获取课程的资源信息的统计 陈兆东-->
+    <select id="getCourseResourcesNumber" resultType="int">
+        SELECT COUNT(*) FROM homework_course_file
+            WHERE course_info_id = #{courseInfoId} AND course_file_type = #{courseFileType}
+    </select>
+
     <!--//创建文件夹-->
     <!--<int createFolders(@Param("userInfoId") int userInfoId,-->
     <!--@Param("folderName") List<String> folderName,-->
@@ -12,5 +18,17 @@
                                 <foreach collection="folderName" item="item" index="index" separator=",">
                                     (#{userInfoId}, #{item}, #{folderCreateTime})
                                 </foreach>
+    </insert>
+
+
+    <!--上传文件-->
+    <!--int insertCourseFile(@Param("courseInfoId")int courseInfoId,-->
+    <!--@Param("courseFileName")String courseFileName,-->
+    <!--@Param("courseFileCode")String courseFileCode,-->
+    <!--@Param("fileUploadTime")String fileUploadTime,-->
+    <!--@Param("courseFileType")int courseFileType);-->
+    <insert id="insertCourseFile">
+        INSERT INTO homework_course_file ("course_info_id","course_file_name","course_file_code","file_upload_time","course_file_type")
+                                    VALUE (#{courseInfoId},#{courseFileName},#{courseFileCode},#{fileUploadTime},#{courseFileType})
     </insert>
 </mapper>
