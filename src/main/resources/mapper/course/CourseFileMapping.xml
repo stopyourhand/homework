@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.csto.homework.mapper.course.CourseFileMapper">
+
+    <!--//创建文件夹-->
+    <!--<int createFolders(@Param("userInfoId") int userInfoId,-->
+    <!--@Param("folderName") List<String> folderName,-->
+    <!--@Param("folderCreateTime")String folderCreateTime);-->
+    <insert id="createFolders">
+        INSERT INTO homework_course_folder (course_info_id,course_folder_name,folder_create_time)
+                                VALUES
+                                <foreach collection="folderName" item="item" index="index" separator=",">
+                                    (#{userInfoId}, #{item}, #{folderCreateTime})
+                                </foreach>
+    </insert>
+</mapper>

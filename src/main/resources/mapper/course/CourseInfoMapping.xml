@@ -9,4 +9,28 @@
                                     value (#{userInfoId},#{courseName},#{createCourseTime})
     </insert>
 
+    <!--//查询数据库中是否有该老师添加的课程名-->
+    <!--int findCourseByCourseName(int userInfoId,String courseName);-->
+    <select id="findCourseByCourseName" resultType="int">
+        select count(*) from homework_course_info where user_info_id = #{userInfoId} and course_name = #{courseName}
+    </select>
+
+    <!--//查询老师已经添加了的全部课程-->
+    <!--List<Map<String,String>> findListMyCourse(int userInfoId);-->
+    <select id="findListMyCourse" parameterType="int" resultType="Map">
+        SELECT course_info_id, course_name FROM homework_course_info WHERE user_info_id = #{userInfoId}
+    </select>
+
+    <!--//修改课程名称-->
+    <!--int updateCourseName(@Param("courseInfoId")int courseInfoId, @Param("courseName")String courseName);-->
+    <update id="updateCourseName">
+        UPDATE homework_course_info set course_name = #{courseName} WHERE course_info_id = #{courseInfoId}
+    </update>
+
+    <!--//删除课程-->
+    <!--int deleteCourseById(int courseInfoId);-->
+    <delete id="deleteCourseById" parameterType="int">
+        DELETE FROM home_course_info WHERE course_info_id = #{courseInfoId}
+    </delete>
+
 </mapper>

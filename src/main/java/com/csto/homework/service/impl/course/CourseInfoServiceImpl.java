@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class CourseInfoServiceImpl implements CourseInfoService {
     @Autowired
@@ -21,6 +24,7 @@ public class CourseInfoServiceImpl implements CourseInfoService {
     @Override
     public int createCourse(CourseInfo courseInfo) {
         int code = courseInfoMapper.findCourseByCourseName(courseInfo.getUserInfoId(),courseInfo.getCourseName());
+        //判断该课程名是否在该老师课程中存在
         if(code != 0){
             return -1;
         }
@@ -29,5 +33,35 @@ public class CourseInfoServiceImpl implements CourseInfoService {
         String createCourseTime = simpleDateFormat.format(date);
         courseInfo.setCreateCourseTime(createCourseTime);
         return courseInfoMapper.createCourse(courseInfo);
+    }
+
+    /**
+     * 根据教师id查询创建的所有课程
+     * @param userInfoId 教师id
+     * @return 课程id，课程名称列表
+     */
+    @Override
+    public List<Map<String, String>> findListMyCourse(int userInfoId) {
+        return courseInfoMapper.findListMyCourse(userInfoId);
+    }
+
+    /**
+     * @param courseInfoId 课程id
+     * @param courseName 修改的课程名称
+     * @return 返回修改行数
+     */
+    @Override
+    public int updateCourseName(int courseInfoId, String courseName) {
+        return courseInfoMapper.updateCourseName(courseInfoId, courseName);
+    }
+
+    /**
+     * 删除课程信息
+     * @param courseInfoId 课程id
+     * @return 删除行数
+     */
+    @Override
+    public int deleteCourseById(int courseInfoId) {
+        return 0;
     }
 }

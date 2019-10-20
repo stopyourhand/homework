@@ -5,10 +5,10 @@ import com.csto.homework.entity.course.CourseInfo;
 import com.csto.homework.service.course.CourseInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 教师对增删课程的操作
@@ -32,6 +32,49 @@ public class CourseInfoController {
         if(resultCode == 1){
             return new Result<>(1,"创建课程成功");
         }
+        else if(resultCode == -1){
+            return new Result(3,"该课程名与您之前添加的课程名重复，请更换课程名或删除之前课程后重新添加");
+        }
         return new Result<>(2,"添加课程失败");
+    }
+
+    /**
+     * 根据教师id查询创建的所有课程
+     * @param userInfoId 教师id
+     * @return 课程id，课程名称列表
+     */
+    @GetMapping("/findListMyCourse")
+    public Result findListMyCourse(int userInfoId) {
+        List<Map<String, String>> myCourseList = courseInfoService.findListMyCourse(userInfoId);
+        if (myCourseList.isEmpty()) {
+            return new Result<>(2, "课程列表为空，请创建课程");
+        }
+        return new Result<List>(1, "查询所有课程信息成功", myCourseList);
+    }
+
+    /**
+     * 修改课程信息
+     * @param courseInfoId 课程id
+     * @param courseName 修改的课程名称
+     * @return 返回修改行数
+     */
+    @PutMapping("/updateCourse")
+    public Result updateCourse(@RequestParam("courseInfoId")int courseInfoId,
+                               @RequestParam("courseName")String courseName){
+        int resultCode = courseInfoService.updateCourseName(courseInfoId, courseName);
+        if(resultCode == 1){
+            return new Result(1,"修改课程名称成功");
+        }
+        return new Result(2,"修改课程名称失败");
+    }
+
+    /**
+     * 删除课程信息
+     * @param courseInfoId 课程id
+     * @return 删除行数
+     */
+    @DeleteMapping("/deleteCourse")
+    public Result deleteCourse(int courseInfoId){
+        return null;
     }
 }

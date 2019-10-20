@@ -4,6 +4,9 @@ import com.csto.homework.entity.course.CourseInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+import java.util.Map;
+
 
 /**
  * 处理课程信息的数据库层
@@ -19,9 +22,14 @@ public interface CourseInfoMapper {
     int createCourse(CourseInfo courseInfo);
 
     //查询数据库中是否有该老师添加的课程名
-    int findCourseByCourseName(@Param("userInfoId") int uid, @Param("courseName") String courseName);
+    int findCourseByCourseName(@Param("userInfoId") int userInfoId, @Param("courseName") String courseName);
 
     //查询老师已经添加了的全部课程
+    List<Map<String,String>> findListMyCourse(int userInfoId);
 
+    //修改课程名称
+    int updateCourseName(@Param("courseInfoId")int courseInfoId, @Param("courseName")String courseName);
 
+    //删除课程
+    int deleteCourseById(int courseInfoId);
 }
