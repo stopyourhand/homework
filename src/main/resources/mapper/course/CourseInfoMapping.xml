@@ -25,7 +25,7 @@
                                     value (#{userInfoId},#{courseName},#{createCourseTime})
     </insert>
 
-    <!--//查询数据库中是否有该老师添加的课程名-->
+    <!--//查询数据库中是否有该老师添加的课程名,即老师不难创建同名课程-->
     <!--int findCourseByCourseName(int userInfoId,String courseName);-->
     <select id="findCourseByCourseName" resultType="int">
         select count(*) from homework_course_info where user_info_id = #{userInfoId} and course_name = #{courseName}

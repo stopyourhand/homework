@@ -28,7 +28,7 @@
     <!--@Param("fileUploadTime")String fileUploadTime,-->
     <!--@Param("courseFileType")int courseFileType);-->
     <insert id="insertCourseFile">
-        INSERT INTO homework_course_file ("course_info_id","course_file_name","course_file_code","file_upload_time","course_file_type")
+        INSERT INTO homework_course_file (course_info_id,course_file_name,course_file_code,file_upload_time,course_file_type)
                                     VALUE (#{courseInfoId},#{courseFileName},#{courseFileCode},#{fileUploadTime},#{courseFileType})
     </insert>
 </mapper>
