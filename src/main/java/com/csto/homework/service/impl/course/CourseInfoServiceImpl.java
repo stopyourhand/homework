@@ -4,11 +4,15 @@ import com.csto.homework.entity.course.CourseInfo;
 import com.csto.homework.entity.user.UserLogin;
 import com.csto.homework.mapper.course.CourseInfoMapper;
 import com.csto.homework.service.course.CourseInfoService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class CourseInfoServiceImpl implements CourseInfoService {
     @Autowired
@@ -25,5 +29,15 @@ public class CourseInfoServiceImpl implements CourseInfoService {
         String createCourseTime = simpleDateFormat.format(date);
         courseInfo.setCreateCourseTime(createCourseTime);
         return courseInfoMapper.createCourse(courseInfo);
+    }
+
+    /**
+     * 根据老师姓名和课程名称获取对应课程信息列表
+     * @param courseName
+     * @return
+     */
+    @Override
+    public List<Map<String,String>> listCourseBySearch(String courseName,String teacherName){
+        return courseInfoMapper.listCourseBySearch(courseName,teacherName);
     }
 }

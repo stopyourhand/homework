@@ -1,4 +1,4 @@
-package com.csto.homework.controller.user;
+package com.csto.homework.controller;
 
 import com.csto.homework.entity.user.UserInfo;
 import com.csto.homework.entity.user.UserLogin;
@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 用户操作相关的业务
+ * 用户登录注销相关的业务
  *
  * @Author czd
  * @Date:createed in 2018/10/19
@@ -40,7 +42,8 @@ public class UserController {
      */
     @PostMapping(value = "/login")
     public Map login(@RequestParam(value = "account") String account,
-                     @RequestParam(value = "passWord") String passWord) {
+                     @RequestParam(value = "passWord") String passWord,
+                     HttpServletRequest request) {
 
         //保存返回给前端信息的hashMap
         Map resultMap = new HashMap<>(16);
@@ -83,7 +86,6 @@ public class UserController {
                 //获取用户所在学院名称并且设置学院名称
                 String college = (String)resultMap.get("userdwmc");
                 userInfo.setUserCollege(college);
-                System.out.println(userInfo.toString());
 
                 int resultInfo = userInfoService.insertUserInfo(userInfo);
                 if (resultInfo <= 0){
@@ -108,6 +110,8 @@ public class UserController {
                     resultMap.put("judge", false);
                     resultMap.put("msg", "数据库插入信息错误!");
                 }
+                HttpSession session = request.getSession();
+                session.setAttribute("account",account);
 
                 resultMap.put("judge", true);
                 resultMap.put("msg", "登录成功!");
@@ -118,7 +122,6 @@ public class UserController {
                 return resultMap;
             }
 
-
         }else if (!userPassWord.equals(passWord)){
             resultMap.put("judge", false);
             resultMap.put("msg", "密码输入有误!");
@@ -127,12 +130,37 @@ public class UserController {
 
         //判断用户密码是否正确，依次来判断是否登录成功
         if (passWord.equals(userPassWord)) {
+            HttpSession session = request.getSession();
+            session.setAttribute("account",account);
             resultMap.put("judge", true);
             resultMap.put("msg", "登录成功!");
             return resultMap;
         }
 
         return resultMap;
+    }
 
+
+    /**
+     * 退出登录功能
+     * @param httpServletRequest
+     * @return
+     */
+    @PostMapping(value = "/exit")
+    public Map exit(HttpServletRequest httpServletRequest) {
+        //保存返回给前端信息的hashMap
+        Map resultMap = new HashMap<>(16);
+
+        //获取当前会话
+        HttpSession session = httpServletRequest.getSession();
+
+        //移除studentId这个session属性，相当于注销状态
+        session.removeAttribute("account");
+        //使整个客户端对应的Session失效，里面的所有东西都会被清空，同时也释放了资源。
+//        session.invalidate();
+
+        resultMap.put("judge", true);
+        resultMap.put("msg","退出成功");
+        return resultMap;
     }
 }

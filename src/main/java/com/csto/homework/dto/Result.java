@@ -14,18 +14,18 @@ public class Result<T> {
     //状态码
     private Integer code;
     //返回提示信息
-    private String message;
+    private String msg;
     //返回数据
     private T data;
 
     public Result(Integer code, String message) {
         this.code = code;
-        this.message = message;
+        this.msg = message;
     }
 
     public Result(Integer code, String message, T data) {
         this.code = code;
-        this.message = message;
+        this.msg = message;
         this.data = data;
     }
 }
