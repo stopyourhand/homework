@@ -35,6 +35,17 @@ public class CourseInfoServiceImpl implements CourseInfoService {
         return courseInfoMapper.createCourse(courseInfo);
     }
 
+
+    /**
+     * 根据教师编号获取此教师开设的课程名称和课程编号
+     * @param userInfoId
+     * @return
+     */
+    @Override
+    public List<Map> listCourseByAccount(int userInfoId){
+        return courseInfoMapper.listCourseByAccount(userInfoId);
+    }
+
     /**
      * 根据教师id查询创建的所有课程
      * @param userInfoId 教师id
@@ -62,7 +73,7 @@ public class CourseInfoServiceImpl implements CourseInfoService {
      */
     @Override
     public int deleteCourseById(int courseInfoId) {
-        return 0;
+        return courseInfoMapper.deleteCourseById(courseInfoId);
     }
 
     /**

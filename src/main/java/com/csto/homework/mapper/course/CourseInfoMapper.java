@@ -20,6 +20,7 @@ public interface CourseInfoMapper {
 
     /**
      * 老师创建课程
+     *
      * @param courseInfo
      * @return
      */
@@ -29,17 +30,26 @@ public interface CourseInfoMapper {
     int findCourseByCourseName(@Param("userInfoId") int userInfoId, @Param("courseName") String courseName);
 
     //查询老师已经添加了的全部课程
-    List<Map<String,String>> findListMyCourse(int userInfoId);
+    List<Map<String, String>> findListMyCourse(int userInfoId);
 
     //修改课程名称
-    int updateCourseName(@Param("courseInfoId")int courseInfoId, @Param("courseName")String courseName);
+    int updateCourseName(@Param("courseInfoId") int courseInfoId, @Param("courseName") String courseName);
+
+    /**
+     * 根据教师编号获取此教师开设的课程名称和课程编号
+     * @param userInfoId
+     * @return
+     */
+    List<Map> listCourseByAccount(@Param("userInfoId") int userInfoId);
+
     /**
      * 根据老师姓名和课程名称获取对应课程信息列表
+     *
      * @param courseName
      * @return
      */
-    List<Map<String,String>> listCourseBySearch(@Param("courseName") String courseName,
-                                                @Param("teacherName") String teacherName);
+    List<Map<String, String>> listCourseBySearch(@Param("courseName") String courseName,
+                                                 @Param("teacherName") String teacherName);
 
     //删除课程
     int deleteCourseById(int courseInfoId);

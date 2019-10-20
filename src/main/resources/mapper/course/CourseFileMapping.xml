@@ -2,10 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.csto.homework.mapper.course.CourseFileMapper">
 
-    <!--根据课程编号获取课程的资源信息的统计 陈兆东-->
+    <resultMap id="courseFileMap" type="CourseFile">
+        <id column="course_file_id" property="courseFileId"/>
+        <result column="course_info_id" property="courseInfoId"/>
+        <result column="course_file_name" property="courseFileName"/>
+        <result column="course_file_code" property="courseFileCode"/>
+        <result column="file_upload_time" property="fileUploadTime"/>
+        <result column="is_delete_file" property="deleteFile"/>
+        <result column="file_delete_time" property="fileDeleteTime"/>
+        <result column="course_file_type" property="courseFileType"/>
+    </resultMap>
+    
+    <!--根据课程编号获取课程的资源信息的统计-->
     <select id="getCourseResourcesNumber" resultType="int">
         SELECT COUNT(*) FROM homework_course_file
             WHERE course_info_id = #{courseInfoId} AND course_file_type = #{courseFileType}
+    </select>
+
+
+
+    <!--根据课程编号获取课程的资源信息的名称和编号-->
+    <select id="listCourseResourcesName" resultType="Map">
+        SELECT course_file_id AS courseFileId,course_file_name AS courseFileName
+              FROM homework_course_file
+                  WHERE course_info_id = #{courseInfoId} AND course_file_type = #{courseFileType}
+    </select>
+
+    <!--根据文件编号获取服务器上传文件后的编码-->
+    <select id="getFileCodeByCourseFileId" resultType="String">
+        SELECT course_file_code FROM homework_course_file
+              WHERE course_file_id = #{courseFileId}
     </select>
 
     <!--//创建文件夹-->
@@ -31,4 +57,10 @@
         INSERT INTO homework_course_file (course_info_id,course_file_name,course_file_code,file_upload_time,course_file_type)
                                     VALUE (#{courseInfoId},#{courseFileName},#{courseFileCode},#{fileUploadTime},#{courseFileType})
     </insert>
+
+    <!--根据文档id删除指定文档-->
+    <delete id="deleteCourseFileById" parameterType="int">
+        DELETE FROM homework_course_file WHERE course_file_id = #{courseFileId}
+    </delete>
+
 </mapper>

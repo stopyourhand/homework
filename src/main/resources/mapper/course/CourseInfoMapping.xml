@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.csto.homework.mapper.course.CourseInfoMapper">
 
-    <!--根据老师姓名和课程名称获取对应课程信息列表 陈兆东-->
+    <!--根据老师姓名和课程名称获取对应课程信息列表-->
     <select id="listCourseBySearch"  resultType="Map">
         SELECT course_info_id AS courseInfoId,course_name AS courseName,user_real_name AS userRealName
         FROM homework_course_info AS course,homework_user_info AS  users
@@ -15,6 +15,13 @@
         </if>
 
 
+    </select>
+
+    <!--根据教师编号获取此教师开设的课程名称和课程编号-->
+    <select id="listCourseByAccount" resultType="Map">
+        SELECT course_info_id AS courseInfoId,course_name AS courseName
+            FROM homework_course_info
+              WHERE user_info_id = #{userInfoId}
     </select>
 
 
