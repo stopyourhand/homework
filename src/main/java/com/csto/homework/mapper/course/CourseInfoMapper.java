@@ -31,6 +31,7 @@ public interface CourseInfoMapper {
     //查询老师已经添加了的全部课程
     List<Map<String,String>> findListMyCourse(int userInfoId);
 
+
     //修改课程名称
     int updateCourseName(@Param("courseInfoId")int courseInfoId, @Param("courseName")String courseName);
     /**

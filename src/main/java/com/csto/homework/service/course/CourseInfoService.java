@@ -29,6 +29,7 @@ public interface CourseInfoService {
      */
     List<Map<String,String>> findListMyCourse(int userInfoId);
 
+
     /**
      * @param courseInfoId 课程id
      * @param courseName 修改的课程名称

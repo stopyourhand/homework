@@ -39,6 +39,7 @@ public class CourseInfoController {
         return new Result<>(2,"添加课程失败");
     }
 
+
     /**
      * 根据教师id查询创建的所有课程
      * @param userInfoId 教师id

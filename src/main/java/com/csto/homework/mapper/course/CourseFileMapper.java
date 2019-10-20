@@ -26,10 +26,7 @@ public interface CourseFileMapper {
     int getCourseResourcesNumber(@Param("courseInfoId") int courseInfoId,
                                  @Param("courseFileType") int courseFileType);
 
-    //创建文件夹
-    int createFolders(@Param("userInfoId") int userInfoId,
-                      @Param("folderName") List<String> folderName,
-                      @Param("folderCreateTime")String folderCreateTime);
+
 
     /**
      * 教师上传文件

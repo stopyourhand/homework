@@ -45,6 +45,7 @@ public class CourseInfoServiceImpl implements CourseInfoService {
         return courseInfoMapper.findListMyCourse(userInfoId);
     }
 
+
     /**
      * @param courseInfoId 课程id
      * @param courseName 修改的课程名称

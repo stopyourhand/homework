@@ -2,6 +2,7 @@ package com.csto.homework.service.course;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -25,13 +26,7 @@ public interface CourseFileService {
      */
     int getCourseResourcesNumber(int courseInfoId,int courseFileType);
 
-    /**
-     * 教师为课程创建文件夹
-     * @param courseInfoId 课程id
-     * @param folderName 文件夹名称列表
-     * @return 插入行数
-     */
-    int createFolder(int courseInfoId, List<String> folderName);
+
 
     /**
      * 教师上传文件
