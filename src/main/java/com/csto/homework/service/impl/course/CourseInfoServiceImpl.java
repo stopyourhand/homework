@@ -64,4 +64,14 @@ public class CourseInfoServiceImpl implements CourseInfoService {
     public int deleteCourseById(int courseInfoId) {
         return 0;
     }
+
+    /**
+     * 根据老师姓名和课程名称获取对应课程信息列表
+     * @param courseName
+     * @return
+     */
+    @Override
+    public List<Map<String,String>> listCourseBySearch(String courseName,String teacherName){
+        return courseInfoMapper.listCourseBySearch(courseName,teacherName);
+    }
 }

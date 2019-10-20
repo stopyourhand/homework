@@ -2,6 +2,7 @@ package com.csto.homework.service.course;
 
 import com.csto.homework.entity.course.CourseInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -41,5 +42,12 @@ public interface CourseInfoService {
      * @return 删除行数
      */
     int deleteCourseById(int courseInfoId);
+
+    /**
+     * 根据老师姓名和课程名称获取对应课程信息列表
+     * @param courseName
+     * @return
+     */
+    List<Map<String,String>> listCourseBySearch( String courseName,String teacherName);
 
 }

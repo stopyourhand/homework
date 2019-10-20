@@ -1,4 +1,4 @@
-package com.csto.homework.controller.course;
+package com.csto.homework.controller.teacher;
 
 import com.csto.homework.dto.Result;
 import com.csto.homework.entity.course.CourseInfo;
@@ -28,6 +28,7 @@ public class CourseInfoController {
      */
     @PostMapping("/createCourse")
     public Result createCourse(CourseInfo courseInfo){
+
         int resultCode = courseInfoService.createCourse(courseInfo);
         if(resultCode == 1){
             return new Result<>(1,"创建课程成功");
