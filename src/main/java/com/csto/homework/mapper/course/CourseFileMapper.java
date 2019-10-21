@@ -18,15 +18,14 @@ import java.util.Map;
 public interface CourseFileMapper {
 
     /**
-     * 陈兆东
      * 根据课程编号获取课程的资源信息的统计
+     *
      * @param courseInfoId
      * @param courseFileType
      * @return
      */
     int getCourseResourcesNumber(@Param("courseInfoId") int courseInfoId,
                                  @Param("courseFileType") int courseFileType);
-
 
 
     /**
@@ -54,16 +53,42 @@ public interface CourseFileMapper {
 
     /**
      * 教师上传文件
-     * @param courseInfoId 课程id
+     *
+     * @param courseInfoId   课程id
      * @param courseFileName 上传文件名
      * @param courseFileCode 文件编码
      * @param fileUploadTime 上传时间
      * @param courseFileType 上传类型
      * @return
      */
-    int insertCourseFile(@Param("courseInfoId")int courseInfoId,
-                         @Param("courseFileName")String courseFileName,
-                         @Param("courseFileCode")String courseFileCode,
-                         @Param("fileUploadTime")String fileUploadTime,
-                         @Param("courseFileType")int courseFileType);
+    int insertCourseFile(@Param("courseInfoId") int courseInfoId,
+                         @Param("courseFileName") String courseFileName,
+                         @Param("courseFileCode") String courseFileCode,
+                         @Param("fileUploadTime") String fileUploadTime,
+                         @Param("courseFileType") int courseFileType);
+
+
+    /**
+     * 修改文档名称
+     *
+     * @param courseFileId
+     * @param courseFileName
+     * @return
+     */
+    int updateCourseFileName(@Param("courseFileId") int courseFileId,
+                             @Param("courseFileName") String courseFileName);
+
+    /**
+     * 根据文档id删除指定文档
+     *
+     * @param courseFileId
+     * @return
+     */
+    int deleteCourseFileById(int courseFileId);
+
+    //    //下载教学文档的路径
+//    String findCourseFileCodeById(int courseFileId);
+
+    //根据文件名，班级，查询对应所有的文件下载路径
+    List<String> findHomewordDownloadUrl();
 }

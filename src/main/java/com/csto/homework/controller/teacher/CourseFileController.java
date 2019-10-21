@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -66,5 +68,33 @@ public class CourseFileController {
         }
 
         return new Result<>(200,"删除成功");
+    }
+
+    /**
+     * 教师修改教学文档信息
+     * @param courseFileId 文档id
+     * @param courseFileName 修改的文档名称
+     * @return
+     */
+    @PutMapping("/updateCourseFile")
+    public Result updateCourseFile(@RequestParam("courseFileId")int courseFileId,
+                                   @RequestParam("courseFileName")String courseFileName){
+        int resultCode = courseFileService.updateCourseFileName(courseFileId,courseFileName);
+        if(resultCode == 1)
+            return new Result(1,"修改文档名称成功");
+        return new Result(2,"修改文档名称发生错误");
+    }
+
+    /**
+     * 教师下载学生课程作业
+     * @param userInfoId 教师id
+     * @param courseFolderName 文件夹名称
+     * @param courseClass 班级名称
+     * @return 下载的文件个数
+     */
+    @GetMapping("/downloadHomewordFile")
+    public Result downloadHomewordFile(HttpServletResponse response) throws IOException {
+        courseFileService.downloadHomewordFile(response);
+        return new Result(1,"下载成功");
     }
 }

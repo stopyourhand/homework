@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * 将Bean注入到Spring容器中
  * @Author czd
  * @Date:createed in
  * @Version: V1.0

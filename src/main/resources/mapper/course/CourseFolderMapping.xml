@@ -21,6 +21,14 @@
         SELECT DISTINCT course_folder_name FROM homework_course_folder WHERE course_info_id = #{courseInfoId}
     </select>
 
+    <!--根据课程编号和班级代号获取文件夹名称列表-->
+    <select id="listFolderName" resultType="Map">
+      SELECT course_folder_id AS courseFolderId,course_folder_name AS courseFolderName
+          FROM homework_course_folder
+              WHERE course_info_id = #{courseInfoId}
+                AND course_class = #{courseClass}
+    </select>
+
     <!--//查询老师为文件夹添加的班级-->
     <!--List<String> findListCourseClass(@Param("courseInfoId") int courseInfoId,-->
                                      <!--@Param("courseFolderName")String courseFolderName);-->

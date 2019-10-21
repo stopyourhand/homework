@@ -8,14 +8,12 @@ import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 @Service
 public class CourseFileServiceImpl implements CourseFileService {
@@ -115,5 +113,85 @@ public class CourseFileServiceImpl implements CourseFileService {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String fileUploadTime = simpleDateFormat.format(date);
         return courseFileMapper.insertCourseFile(courseInfoId,courseFileName,courseFileCode,fileUploadTime,courseFileType);
+    }
+
+    //    /**
+//     * 教师下载教学文档
+//     * @param courseFileIdList  需要下载的文档id列表
+//     * @return
+//     */
+//    @Override
+//    public int downloadFile(List<Integer> courseFileIdList) {
+//
+//        return 0;
+//    }
+
+    /**
+     * 根据文档id删除指定文档
+     *
+     * @param courseFileId
+     * @return
+     */
+    public int deleteCourseFileById(int courseFileId){
+        return courseFileMapper.deleteCourseFileById(courseFileId);
+    }
+
+    /**
+     * 修改文档名称
+     * @param courseFileId 文档id
+     * @param courseFileName 修改文档名称
+     * @return
+     */
+    @Override
+    public int updateCourseFileName(int courseFileId, String courseFileName) {
+        return courseFileMapper.updateCourseFileName(courseFileId,courseFileName);
+    }
+
+    /**
+     * 教师下载学生课程作业
+     * @param userInfoId 教师id
+     * @param courseFolderName 文件夹名称
+     * @param courseClass 班级名称, int userInfoId, String courseFolderName, String courseClass
+     * @return 下载的文件个数
+     */
+    @Override
+    public int downloadHomewordFile(HttpServletResponse response)throws IOException {
+//        List<String> downloadUrlList = courseFileMapper.findHomewordDownloadUrl();
+        List<Map<String,String>> downloadFile = new LinkedList<>();
+
+        Map<String,String> map = new HashMap<>();
+        map.put("homewordFileName","图片1.jpg");
+        map.put("homewordFileCode","1.jpg");
+        downloadFile.add(map);
+        Map<String,String> map1 = new HashMap<>();
+        map1.put("homewordFileName","图片2.jpg");
+        map1.put("homewordFileCode","2.jpg");
+        downloadFile.add(map1);
+
+        response.setContentType("application/x-msdownload");
+        response.setHeader("Content-Disposition", "attachment;filename=test.zip");
+        response.setCharacterEncoding("utf-8");
+        String path = "E:\\images/";
+        String str = "";
+        String rt = "/n";
+        ZipOutputStream zos = new ZipOutputStream(response.getOutputStream());
+        for(Map<String,String> homewordFile:downloadFile) {
+            System.out.println(homewordFile.get("homewordFileName")+"$"+homewordFile.get("homewordFileCode"));
+            zos.putNextEntry(new ZipEntry(homewordFile.get("homewordFileName")));
+            str += homewordFile.get("homewordFileName") + rt;
+            File file = new File(path+(homewordFile.get("homewordFileCode")));
+            FileInputStream fis = new FileInputStream(file);
+            byte[] b = new byte[1024];
+            int n = -1;
+            while((n=fis.read(b))!=-1) {
+                zos.write(b,0,n);
+            }
+            zos.flush();
+            fis.close();
+        }
+        zos.setComment("download success:"+rt+str);
+        zos.flush();
+        zos.close();
+        return 1;
     }
 }

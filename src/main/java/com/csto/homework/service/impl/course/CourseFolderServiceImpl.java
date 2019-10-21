@@ -2,6 +2,7 @@ package com.csto.homework.service.impl.course;
 
 import com.csto.homework.mapper.course.CourseFolderMapper;
 import com.csto.homework.service.course.CourseFolderService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,5 +52,15 @@ public class CourseFolderServiceImpl implements CourseFolderService {
         }
         resultMap.put("allCourseClassList", allCourseClassList);
         return resultMap;
+    }
+
+    /**
+     * 根据课程编号和班级代号获取文件夹名称列表
+     * @param courseInfoId
+     * @param courseClass
+     * @return
+     */
+    public List<Map> listFolderName(int courseInfoId,String courseClass){
+        return courseFolderMapper.listFolderName(courseInfoId,courseClass);
     }
 }

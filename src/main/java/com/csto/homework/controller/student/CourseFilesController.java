@@ -1,61 +1,38 @@
 package com.csto.homework.controller.student;
 
 import com.csto.homework.dto.Result;
-import com.csto.homework.entity.course.CourseFile;
 import com.csto.homework.service.course.CourseFileService;
+import com.csto.homework.service.course.CourseFolderService;
 import com.csto.homework.service.course.CourseInfoService;
+import com.csto.homework.util.DownloadUtil;
+import com.csto.homework.util.UploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.net.URLEncoder;
-import java.util.Arrays;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * 学生管理搜索资源相关操作
- *
  * @Author czd
- * @Date:createed in 2019/10/19
+ * @Date:createed in 2019/10/20
  * @Version: V1.0
  */
 @RestController
-@RequestMapping(value = "/student")
-public class SearchController {
+@RequestMapping(value = "/student/courseFile")
+public class CourseFilesController {
 
-    @Autowired
-    private CourseInfoService courseInfoService;
 
     @Autowired
     private CourseFileService courseFileService;
-
-    /**
-     * 搜索资源操作
-     *
-     * @return
-     */
-    @GetMapping(value = "/search")
-    public Result searchResources(@RequestParam(value = "teacherName", required = false) String teacherName,
-                                  @RequestParam(value = "courseName", required = false) String courseName) {
-        //对空字符串进行null赋值
-        if ("".equals(teacherName)) {
-            teacherName = null;
-        }
-        if ("".equals(courseName)) {
-            courseName = null;
-        }
-        List<Map<String, String>> mapList = courseInfoService.listCourseBySearch(courseName, teacherName);
-
-
-        return new Result<>(200, "查询成功", mapList);
-    }
 
     /**
      * 查询对应课程的学期授课资源和学期作业文档是否有内容
@@ -128,7 +105,7 @@ public class SearchController {
      */
     @GetMapping(value = "/to")
     public Result toResources(@RequestParam("courseInfoId") int courseInfoId,
-                                      @RequestParam("courseFileType") int courseFileType) {
+                              @RequestParam("courseFileType") int courseFileType) {
         if (courseInfoId < 0){
             return new Result<>(400,"参数传输错误");
         }
@@ -157,64 +134,11 @@ public class SearchController {
             return new Result<>(400, "参数传输错误");
         }
 
+        //获取资源下载路径
         String realPath = request.getServletContext().getRealPath("/");
 
-        //获取资源的数量长度
-        int length = idList.size();
+        Result result = DownloadUtil.downloadFile(response,idList,realPath,courseFileService);
 
-        for (int index = 0; index < length; index++) {
-            int courseFileId = idList.get(index);
-            //获取当前资源名称
-            String fileName = courseFileService.getFileCodeByCourseFileId(courseFileId);
-            if (fileName != null) {
-                File newFile = new File(realPath, fileName);
-                if (newFile.exists()) {
-                    // 下载文件能正常显示中文
-                    response.setHeader("content-type", "application/octet-stream");
-                    response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
-                    response.setContentType("application/vnd.ms-excel;charset=UTF-8");
-                    response.setCharacterEncoding("UTF-8");
-
-                    //设置获取文件的输入流和缓冲流
-                    byte[] buffer = new byte[1024];
-                    FileInputStream fileInputStream = null;
-                    BufferedInputStream bufferedInputStream = null;
-                    try {
-                        fileInputStream = new FileInputStream(newFile);
-                        bufferedInputStream = new BufferedInputStream(fileInputStream);
-                        //获取输出流
-                        OutputStream outputStream = response.getOutputStream();
-                        //将字节流以数字形式读取进来
-                        int i = bufferedInputStream.read(buffer);
-                        //将读取到的文件内容写入一个新的文件中
-                        while (i != -1) {
-                            outputStream.write(buffer);//, 0, 1
-                            i = bufferedInputStream.read(buffer);
-                        }
-
-                    } catch (Exception e) {
-                        return new Result(500, "文件下载失败");
-                    } finally {
-                        //关闭流
-                        try {
-                            if (bufferedInputStream != null) {
-                                bufferedInputStream.close();
-                            }
-
-                            if (fileInputStream != null) {
-                                fileInputStream.close();
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-
-                }
-            }
-
-        }
-
-        return new Result(200, "文件下载成功");
+        return result;
     }
 }

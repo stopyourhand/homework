@@ -63,4 +63,17 @@
         DELETE FROM homework_course_file WHERE course_file_id = #{courseFileId}
     </delete>
 
+    <!--//修改文档名称-->
+    <!--int updateCourseFileName(@Param("courseInfoId") int courseInfoId,-->
+    <!--@Param("courseFileName")String courseFileName);-->
+    <update id="updateCourseFileName" >
+        UPDATE homework_course_file SET course_file_name = #{courseFileName} WHERE course_file_id = #{courseFileId}
+    </update>
+
+    <!--&lt;!&ndash;//下载教学文档的路径&ndash;&gt;-->
+    <!--&lt;!&ndash;String findCourseFileCodeById(int courseFileId);&ndash;&gt;-->
+    <!--<select id="findCourseFileCodeById" parameterType="int" resultType="String">-->
+    <!--SELECT course_file_code FROM homework_course_file WHERE course_file_id = #{courseFileId}-->
+    <!--</select>-->
+
 </mapper>

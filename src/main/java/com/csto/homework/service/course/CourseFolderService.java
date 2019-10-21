@@ -20,4 +20,12 @@ public interface CourseFolderService {
      * @return 实验报告和班级文件夹
      */
     Map<String,List<String>> findListFolder(int courseInfoId);
+
+    /**
+     * 根据课程编号和班级代号获取文件夹名称列表
+     * @param courseInfoId
+     * @param courseClass
+     * @return
+     */
+    List<Map> listFolderName(int courseInfoId,String courseClass);
 }

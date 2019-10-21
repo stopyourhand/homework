@@ -1,10 +1,9 @@
 package com.csto.homework.service.course;
 
-import com.csto.homework.entity.course.CourseFile;
 import org.apache.ibatis.annotations.Param;
-import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,6 @@ public interface CourseFileService {
      * @return
      */
     int getCourseResourcesNumber(int courseInfoId, int courseFileType);
-
 
 
 
@@ -73,5 +71,30 @@ public interface CourseFileService {
      * @return
      */
     int deleteCourseFileById(int courseFileId);
+
+    //    /**
+//     * 教师下载教学文档
+//     * @param courseFileIdList  需要下载的文档id列表
+//     * @return
+//     */
+//    int downloadFile(List<Integer> courseFileIdList);
+
+    /**
+     * 修改文档名称
+     * @param courseFileId 文档id
+     * @param courseFileName 修改文档名称
+     * @return
+     */
+    int updateCourseFileName(int courseFileId, String courseFileName);
+
+    /**
+     * 教师下载学生课程作业
+     * @param userInfoId 教师id
+     * @param courseFolderName 文件夹名称
+     * @param courseClass 班级名称, int userInfoId,
+     *                              String courseFolderName, String courseClass
+     * @return
+     */
+    int downloadHomewordFile(HttpServletResponse response)throws IOException ;
 
 }
