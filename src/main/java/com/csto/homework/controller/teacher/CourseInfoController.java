@@ -18,7 +18,7 @@ import java.util.Map;
  * @author fjw
  */
 @RestController
-@RequestMapping(value = "/CourseInfo")
+@RequestMapping(value = "/teacher/courseInfo")
 public class CourseInfoController {
 
     @Autowired

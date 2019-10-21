@@ -15,7 +15,7 @@ import java.util.List;
  * @author fjw
  */
 @RestController
-@RequestMapping(value = "/CourseFile")
+@RequestMapping(value = "/teacher/courseFile")
 public class CourseFileController {
     @Autowired
     CourseFileService courseFileService;

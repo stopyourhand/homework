@@ -25,7 +25,7 @@ import java.util.Map;
  * @Version: V1.0
  */
 @RestController
-@RequestMapping(value = "/homework")
+@RequestMapping(value = "/user")
 public class UserController {
 
     @Autowired

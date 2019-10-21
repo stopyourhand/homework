@@ -14,7 +14,7 @@ import java.util.Map;
  * @author fjw
  */
 @RestController
-@RequestMapping(value = "/CourseFolder")
+@RequestMapping(value = "/teacher/courseFolder")
 public class CourseFolderController {
     @Autowired
     CourseFolderService courseFolderService;
