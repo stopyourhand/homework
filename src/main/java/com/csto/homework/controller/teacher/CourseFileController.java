@@ -36,12 +36,12 @@ public class CourseFileController {
         try{
             int resultCode = courseFileService.uploadFile(courseInfoId,courseFile,courseFileType);
             if(resultCode == 1)
-                return new Result(1,"文件上传成功");
+                return new Result(200,"文件上传成功");
         }catch (Exception e){
             System.out.println(e);
-            return new Result(2,"文件上传出现异常");
+            return new Result(400,"文件上传出现异常");
         }
-        return new Result(3,"文件插入数据库出现异常");
+        return new Result(401,"文件插入数据库出现异常");
     }
 
     /**
@@ -81,8 +81,8 @@ public class CourseFileController {
                                    @RequestParam("courseFileName")String courseFileName){
         int resultCode = courseFileService.updateCourseFileName(courseFileId,courseFileName);
         if(resultCode == 1)
-            return new Result(1,"修改文档名称成功");
-        return new Result(2,"修改文档名称发生错误");
+            return new Result(200,"修改文档名称成功");
+        return new Result(400,"修改文档名称发生错误");
     }
 
     /**

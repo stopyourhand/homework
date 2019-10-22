@@ -34,12 +34,12 @@ public class CourseInfoController {
 
         int resultCode = courseInfoService.createCourse(courseInfo);
         if(resultCode == 1){
-            return new Result<>(1,"创建课程成功");
+            return new Result<>(200,"创建课程成功");
         }
         else if(resultCode == -1){
-            return new Result(3,"该课程名与您之前添加的课程名重复，请更换课程名或删除之前课程后重新添加");
+            return new Result(400,"该课程名与您之前添加的课程名重复，请更换课程名或删除之前课程后重新添加");
         }
-        return new Result<>(2,"添加课程失败");
+        return new Result<>(401,"添加课程失败");
     }
 
 
@@ -52,9 +52,9 @@ public class CourseInfoController {
     public Result findListMyCourse(int userInfoId) {
         List<Map<String, String>> myCourseList = courseInfoService.findListMyCourse(userInfoId);
         if (myCourseList.isEmpty()) {
-            return new Result<>(2, "课程列表为空，请创建课程");
+            return new Result<>(201, "课程列表为空，请创建课程");
         }
-        return new Result<List>(1, "查询所有课程信息成功", myCourseList);
+        return new Result<List>(200, "查询所有课程信息成功", myCourseList);
     }
 
     /**
@@ -68,9 +68,9 @@ public class CourseInfoController {
                                @RequestParam("courseName")String courseName){
         int resultCode = courseInfoService.updateCourseName(courseInfoId, courseName);
         if(resultCode == 1){
-            return new Result(1,"修改课程名称成功");
+            return new Result(200,"修改课程名称成功");
         }
-        return new Result(2,"修改课程名称失败");
+        return new Result(400,"修改课程名称失败");
     }
 
     /**

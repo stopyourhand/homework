@@ -26,9 +26,9 @@ public class CourseFolderController {
 
         int resultCode = courseFolderService.createFolder(courseInfoId, folderName, courseClass);
         if(resultCode == courseClass.size()){
-            return new Result(1,"创建文件夹成功");
+            return new Result(200,"创建文件夹成功");
         }
-        return new Result(2,"创建文件夹异常");
+        return new Result(400,"创建文件夹异常");
     }
 
     /**
@@ -43,7 +43,7 @@ public class CourseFolderController {
         List allCourseClassList = (List)resultMap.get("allCourseClassList");
         //判断文件夹列表长度与班级列表长度是否相等（每一个文件夹对应一个班级列表）
         if(courseFolderNameList.size() == allCourseClassList.size())
-            return new Result<>(1,"查询课程文件夹和其班级文件夹成功",resultMap);
-        return new Result<>(2,"查询课程文件夹和其班级文件夹错误");
+            return new Result<>(200,"查询课程文件夹和其班级文件夹成功",resultMap);
+        return new Result<>(400,"查询课程文件夹和其班级文件夹错误");
     }
 }
