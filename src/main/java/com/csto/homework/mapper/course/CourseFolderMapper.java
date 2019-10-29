@@ -32,13 +32,6 @@ public interface CourseFolderMapper {
      * @param courseClass
      * @return
      */
-    List<Map> listFolderName(@Param("courseName") String courseName,
+    List<Map> listFolderName(@Param("courseInfoId") int courseInfoId,
                              @Param("courseClass") String courseClass);
-
-    /**
-     * 根据课程ID删除指定文件
-     * @param courseInfoId
-     * @return
-     */
-    int deleteCourse(@Param("courseInfoId") int courseInfoId);
 }

@@ -34,7 +34,7 @@ public class UserLoginServiceImpl implements UserLoginService {
      * @param account
      * @return
      */
-    public Map<String,Integer> getUserTypeAndId(String account){
+    public UserLogin getUserTypeAndId(String account){
         return userLoginMapper.getUserTypeAndId(account);
     }
 

@@ -1,10 +1,9 @@
 package com.csto.homework.service.impl.course;
 
+import com.csto.homework.entity.course.TdownloadPageDto;
 import com.csto.homework.entity.course.CourseInfo;
-import com.csto.homework.entity.user.UserLogin;
 import com.csto.homework.mapper.course.CourseInfoMapper;
 import com.csto.homework.service.course.CourseInfoService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -89,11 +88,11 @@ public class CourseInfoServiceImpl implements CourseInfoService {
     }
 
     /**
-     * 根据课程ID删除指定文件
-     * @param courseInfoId
-     * @return
+     *     根据课程id查询教师下载课程作业页面信息
+     *     TdownloadPageDto
      */
-    public int deleteCourse(int courseInfoId){
-        return courseInfoMapper.deleteCourse(courseInfoId);
+    @Override
+    public List<TdownloadPageDto> findListDownloadFolder(int userInfoId) {
+        return courseInfoMapper.findListDownloadFolder(userInfoId);
     }
 }

@@ -27,7 +27,7 @@ public interface UserLoginService {
      * @param account
      * @return
      */
-    Map<String,Integer> getUserTypeAndId(String account);
+    UserLogin getUserTypeAndId(String account);
 
     /**
      * 添加新的用户到数据库中

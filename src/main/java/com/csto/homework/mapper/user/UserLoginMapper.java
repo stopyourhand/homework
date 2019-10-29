@@ -27,7 +27,7 @@ public interface UserLoginMapper {
      * @param account
      * @return
      */
-    Map<String,Integer> getUserTypeAndId(@Param("account") String account);
+    UserLogin getUserTypeAndId(@Param("account") String account);
 
     /**
      * 添加新的用户到数据库中

@@ -1,5 +1,6 @@
 package com.csto.homework.mapper.course;
 
+import com.csto.homework.entity.course.TdownloadPageDto;
 import com.csto.homework.entity.course.CourseInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -56,10 +57,8 @@ public interface CourseInfoMapper {
     int deleteCourseById(int courseInfoId);
 
     /**
-     * 根据课程ID删除指定文件
-     * @param courseInfoId
-     * @return
+     *     根据课程id查询教师下载课程作业页面信息
+     *     TdownloadPageDto
      */
-    int deleteCourse(@Param("courseInfoId") int courseInfoId);
-
+    List<TdownloadPageDto> findListDownloadFolder(int userInfoId);
 }

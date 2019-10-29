@@ -118,14 +118,12 @@ public class CourseFileController {
 
     /**
      * 教师下载学生课程作业
-     * @param userInfoId 教师id
-     * @param courseFolderName 文件夹名称
-     * @param courseClass 班级名称
-     * @return 下载的文件个数
+     * @return
      */
-    @GetMapping("/downloadHomewordFile")
-    public Result downloadHomewordFile(HttpServletResponse response) throws IOException {
-        courseFileService.downloadHomewordFile(response);
-        return new Result(1,"下载成功");
+    @GetMapping(value = "/downloadHomewordFile", produces = "application/json;charset=UTF-8")
+    public boolean downloadHomewordFile(HttpServletResponse response,int courseFolderId,String courseFolderName) throws IOException {
+        System.out.println("开始下载");
+        courseFileService.downloadHomewordFile(response,courseFolderId,courseFolderName);
+        return true;
     }
 }

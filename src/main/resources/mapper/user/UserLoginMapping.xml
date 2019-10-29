@@ -17,8 +17,8 @@
     </select>
 
     <!--根据用户账号获取登录的用户类型 userType 1:教师 2:学生-->
-    <select id="getUserTypeAndId" resultType="Map">
-        SELECT user_info_id AS userInfoId,login_user_type AS userType
+    <select id="getUserTypeAndId" resultType="UserLogin">
+        SELECT user_info_id AS userInfoId,login_user_type AS loginUserType
               FROM homework_user_login WHERE login_account = #{account}
     </select>
 

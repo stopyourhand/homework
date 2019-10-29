@@ -6,11 +6,13 @@ import com.csto.homework.service.user.UserInfoService;
 import com.csto.homework.service.user.UserLoginService;
 import com.csto.homework.util.InterfaceAnalysisUtil;
 import com.csto.homework.util.SpringUtil;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.sound.midi.Soundbank;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -62,8 +64,11 @@ public class UserController {
 
         //从数据库中获取用户输入账号对应的密码
         String userPassWord = userLoginService.getUserPassword(account);
+        System.out.println("数据库userPassword: " + userPassWord);
+        System.out.println("前端参数： "+passWord);
         //判断从数据库中取出来的密码是否有效
         if (userPassWord == null || "".equals(userPassWord)) {
+
             //使用学校结口的工具类
             InterfaceAnalysisUtil interfaceAnalysisUtil = new InterfaceAnalysisUtil();
             //调用学校接口进行登录
@@ -110,6 +115,10 @@ public class UserController {
                 }
 
                 session.setAttribute("account",account);
+                /**
+                 *
+                 */
+                session.setAttribute("userInfoId",userInfoId);
 
                 resultMap.put("userInfoId",account);
                 resultMap.put("judge", true);
@@ -132,10 +141,16 @@ public class UserController {
             session.setAttribute("account",account);
 
             //根据用户账号获取对应的登录对象 userType 1:教师 2:学生
-            Map<String,Integer> parameterMap = userLoginService.getUserTypeAndId(account);
+            UserLogin parameterMap = userLoginService.getUserTypeAndId(account);
             //获取用户类型和用户id
-            Integer userType =  parameterMap.get("userType");
-//            Integer userInfoId = parameterMap.get("Id").intValue();
+            Integer userType =  parameterMap.getLoginUserType();
+            Integer userInfoId = parameterMap.getUserInfoId();
+            //int userInfoId = parameterMap.get("userInfoId");
+            /**
+             *
+             */
+            session.setAttribute("userInfoId",userInfoId);
+
 
             resultMap.put("userInfoId",account);
             resultMap.put("usertype",userType);

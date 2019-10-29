@@ -87,4 +87,10 @@
     <!--SELECT course_file_code FROM homework_course_file WHERE course_file_id = #{courseFileId}-->
     <!--</select>-->
 
+    <!--//根据文件夹id查询对应所有的文件下载路径-->
+    <!--List<Map<String,String>> findHomewordDownloadUrl(int courseFolderId);-->
+    <select id="findHomewordDownloadUrl" parameterType="int" resultType="Map">
+        SELECT course_file_name as courseFileName,course_file_code as courseFileCode FROM homework_course_file WHERE course_folder_id = #{courseFolderId}
+    </select>
+
 </mapper>

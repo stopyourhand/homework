@@ -22,13 +22,10 @@
     </select>
 
     <!--根据课程编号和班级代号获取文件夹名称列表-->
-    <select  id="listFolderName" resultType="Map">
-      SELECT course_info_id AS courseInfoId,course_folder_id AS courseFolderId,course_folder_name AS courseFolderName
+    <select id="listFolderName" resultType="Map">
+      SELECT course_folder_id AS courseFolderId,course_folder_name AS courseFolderName
           FROM homework_course_folder
-              WHERE course_info_id = (
-                                      SELECT course_info_id FROM homework_course_info
-                                            WHERE course_name = #{courseName}
-                                      )
+              WHERE course_info_id = #{courseInfoId}
                 AND course_class = #{courseClass}
     </select>
 
@@ -39,9 +36,4 @@
         SELECT course_class FROM homework_course_folder WHERE course_info_id = #{courseInfoId}
                                                               and course_folder_name = #{courseFolderName}
     </select>
-
-    <!--根据课程ID删除指定文件-->
-    <delete id="deleteCourse" parameterType="Integer">
-        DELETE FROM homework_course_folder WHERE course_info_id = #{courseInfoId}
-    </delete>
 </mapper>

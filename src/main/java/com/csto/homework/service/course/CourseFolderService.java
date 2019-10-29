@@ -1,7 +1,5 @@
 package com.csto.homework.service.course;
 
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
 import java.util.Map;
 
@@ -29,12 +27,5 @@ public interface CourseFolderService {
      * @param courseClass
      * @return
      */
-    List<Map> listFolderName(String courseName,String courseClass);
-
-    /**
-     * 根据课程ID删除指定文件
-     * @param courseInfoId
-     * @return
-     */
-    int deleteCourse(int courseInfoId);
+    List<Map> listFolderName(int courseInfoId,String courseClass);
 }
