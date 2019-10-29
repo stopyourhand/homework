@@ -29,9 +29,26 @@ public interface CourseFolderMapper {
     /**
      * 根据课程编号和班级代号获取文件夹名称列表
      * @param courseInfoId
-     * @param courseClass
+     * @param courseClass int courseInfoId,String courseClass
+     */
+    List<Map> listFolderName(@Param("courseName") String courseName,
+                             @Param("courseClass") String courseClass);
+
+    /**
+     * 根据课程ID删除指定文件
+     * @param courseInfoId
      * @return
      */
-    List<Map> listFolderName(@Param("courseInfoId") int courseInfoId,
-                             @Param("courseClass") String courseClass);
+    int deleteCourse(@Param("courseInfoId") int courseInfoId);
+
+    /**
+     * 查找文件夹是否已经存在
+     * @param courseInfoId 课程id
+     * @param courseFolderName 文件夹名称
+     * @param courseClass 班级名称
+     * @return 文件夹id
+     */
+    List<Integer> findFolder(@Param("courseInfoId")int courseInfoId,
+                             @Param("courseFolderName")String courseFolderName,
+                             @Param("courseClass")String courseClass);
 }

@@ -41,7 +41,7 @@
     <!--//查询老师已经添加了的全部课程-->
     <!--List<Map<String,String>> findListMyCourse(int userInfoId);-->
     <select id="findListMyCourse" parameterType="int" resultType="Map">
-        SELECT course_info_id, course_name FROM homework_course_info WHERE user_info_id = #{userInfoId}
+        SELECT course_info_id as courseInfoId, course_name as courseName FROM homework_course_info WHERE user_info_id = #{userInfoId}
     </select>
 
 
@@ -58,4 +58,24 @@
         DELETE FROM home_course_info WHERE course_info_id = #{courseInfoId}
     </delete>
 
+    <!--根据课程ID删除指定文件-->
+    <delete id="deleteCourse" parameterType="Integer">
+        DELETE FROM homework_course_info WHERE course_info_id = #{courseInfoId}
+    </delete>
+
+    <!--/**-->
+    <!--*     根据课程id查询教师下载课程作业页面信息-->
+    <!--*     TdownloadPageDto-->
+    <!--*/-->
+    <!--TdownloadPageDto findListDownloadFolder(int courseInfoId);-->
+    <select id="findListDownloadFolder" parameterType="int" resultType="TdownloadPageDto">
+        SELECT f.course_folder_id as courseFolderId,
+                i.course_name as courseName,
+                f.course_folder_name as courseFolderName,
+                f.course_class as courseClass FROM
+                homework_course_info as i, homework_course_folder as f
+                WHERE i.course_info_id = f.course_info_id
+                AND user_info_id = #{userInfoId}
+
+    </select>
 </mapper>

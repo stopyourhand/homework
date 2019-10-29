@@ -67,6 +67,12 @@ public interface CourseFileMapper {
                          @Param("fileUploadTime") String fileUploadTime,
                          @Param("courseFileType") int courseFileType);
 
+    /**
+     * 学生端上传文件
+     * @param courseFile
+     * @return
+     */
+    int insertCourseFileStudent(CourseFile courseFile);
 
     /**
      * 修改文档名称
@@ -86,9 +92,19 @@ public interface CourseFileMapper {
      */
     int deleteCourseFileById(int courseFileId);
 
+    /**
+     * 根据课程ID删除指定文件
+     * @param courseInfoId
+     * @return
+     */
+    int deleteCourse(@Param("courseInfoId") int courseInfoId);
+
     //    //下载教学文档的路径
 //    String findCourseFileCodeById(int courseFileId);
 
     //根据文件名，班级，查询对应所有的文件下载路径
     List<String> findHomewordDownloadUrl();
+
+    //根据文件夹id查询对应所有的文件下载路径
+    List<Map<String,String>> findHomewordDownloadUrl(int courseFolderId);
 }

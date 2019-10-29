@@ -1,7 +1,6 @@
 package com.csto.homework.controller.teacher;
 
 import com.csto.homework.dto.Result;
-import com.csto.homework.service.course.CourseFileService;
 import com.csto.homework.service.course.CourseFolderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,11 +23,18 @@ public class CourseFolderController {
                                @RequestParam("folderName")String folderName,
                                @RequestParam("courseClass")List<String> courseClass){
 
-        int resultCode = courseFolderService.createFolder(courseInfoId, folderName, courseClass);
-        if(resultCode == courseClass.size()){
-            return new Result(200,"创建文件夹成功");
+        List<String> repeatCourseClassList = courseFolderService.createFolder(courseInfoId, folderName, courseClass);
+        StringBuffer repeatCourseClassString = new StringBuffer();
+        if(!repeatCourseClassList.isEmpty()){
+            for(int i=0;i<repeatCourseClassList.size();i++){
+                if(i!=repeatCourseClassList.size()-1)
+                    repeatCourseClassString.append(repeatCourseClassList.get(i)+"，");
+                else
+                    repeatCourseClassString.append(repeatCourseClassList.get(i));
+            }
+            return new Result(201,"班级"+repeatCourseClassString+"已经在文件夹"+folderName+"中存在，故班级"+repeatCourseClassString+"创建失败!");
         }
-        return new Result(400,"创建文件夹异常");
+        return new Result(200,"创建成功！");
     }
 
     /**

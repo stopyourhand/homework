@@ -36,4 +36,18 @@
         SELECT course_class FROM homework_course_folder WHERE course_info_id = #{courseInfoId}
                                                               and course_folder_name = #{courseFolderName}
     </select>
+
+    <!--根据课程ID删除指定文件-->
+    <delete id="deleteCourse" parameterType="Integer">
+        DELETE FROM homework_course_folder WHERE course_info_id = #{courseInfoId}
+    </delete>
+
+    <!--int findFolder(@Param("courseInfoId")int courseInfoId,-->
+    <!--@Param("courseFolderName")String courseFolderName,-->
+    <!--@Param("courseClass")String courseClass);-->
+    <select id="findFolder" resultType="int">
+        SELECT course_folder_id FROM homework_course_folder WHERE course_info_id = #{courseInfoId}
+                                                              AND course_folder_name = #{courseFolderName}
+                                                              AND course_class = #{courseClass}
+    </select>
 </mapper>

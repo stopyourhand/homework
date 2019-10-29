@@ -34,4 +34,6 @@ public class CourseFile {
      * 4:实验报告模板 5:平时作业模板 6:其他(学期作业文档)
      */
     private Integer courseFileType;
+    /** 文件夹编号 **/
+    private Integer courseFolderId;
 }

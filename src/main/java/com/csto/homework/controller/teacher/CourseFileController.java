@@ -87,14 +87,34 @@ public class CourseFileController {
 
     /**
      * 教师下载学生课程作业
-     * @param userInfoId 教师id
-     * @param courseFolderName 文件夹名称
-     * @param courseClass 班级名称
-     * @return 下载的文件个数
+     * @return
      */
-    @GetMapping("/downloadHomewordFile")
-    public Result downloadHomewordFile(HttpServletResponse response) throws IOException {
-        courseFileService.downloadHomewordFile(response);
-        return new Result(1,"下载成功");
+    @GetMapping(value = "/downloadHomewordFile", produces = "application/json;charset=UTF-8")
+    public boolean downloadHomewordFile(HttpServletResponse response,int courseFolderId,String courseFolderName) throws IOException {
+        System.out.println("开始下载");
+        courseFileService.downloadHomewordFile(response,courseFolderId,courseFolderName);
+        return true;
     }
+
+    /**
+     * 删除指定课程
+     * @param courseInfoId
+     * @return
+     */
+    @DeleteMapping("/deleteCourse")
+    public Result deleteCourse(@RequestParam("courseInfoId") int courseInfoId){
+        if (courseInfoId < 0){
+            return new Result(400,"课程id有误");
+        }
+
+        int FileResult = courseFileService.deleteCourse(courseInfoId);
+        int folderResult = courseFolderService.deleteCourse(courseInfoId);
+        int InfoResult = courseInfoService.deleteCourse(courseInfoId);
+
+        if (InfoResult <= 0 || folderResult <= 0 || FileResult <= 0){
+            return new Result(500,"删除错误");
+        }
+        return new Result(200,"删除成功");
+    }
+
 }

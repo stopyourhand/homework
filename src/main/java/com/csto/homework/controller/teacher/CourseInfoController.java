@@ -2,14 +2,13 @@ package com.csto.homework.controller.teacher;
 
 import com.csto.homework.dto.Result;
 import com.csto.homework.entity.course.CourseInfo;
+import com.csto.homework.entity.course.TdownloadPageDto;
 import com.csto.homework.service.course.CourseInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,8 +29,13 @@ public class CourseInfoController {
      * @return 提示结果
      */
     @PostMapping("/createCourse")
-    public Result createCourse(CourseInfo courseInfo){
-
+    public Result createCourse(HttpServletRequest request, String courseName){
+        HttpSession session = request.getSession();
+        int userInfoId = Integer.parseInt(session.getAttribute("userInfoId").toString());
+        CourseInfo courseInfo = new CourseInfo();
+        courseInfo.setUserInfoId(userInfoId);
+        courseInfo.setCourseName(courseName);
+        System.out.println(courseInfo);
         int resultCode = courseInfoService.createCourse(courseInfo);
         if(resultCode == 1){
             return new Result<>(200,"创建课程成功");
@@ -45,11 +49,13 @@ public class CourseInfoController {
 
     /**
      * 根据教师id查询创建的所有课程
-     * @param userInfoId 教师id
+     * userInfoId 教师id
      * @return 课程id，课程名称列表
      */
     @GetMapping("/findListMyCourse")
-    public Result findListMyCourse(int userInfoId) {
+    public Result findListMyCourse(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        int userInfoId = Integer.parseInt(session.getAttribute("userInfoId").toString());
         List<Map<String, String>> myCourseList = courseInfoService.findListMyCourse(userInfoId);
         if (myCourseList.isEmpty()) {
             return new Result<>(201, "课程列表为空，请创建课程");
@@ -73,6 +79,8 @@ public class CourseInfoController {
         return new Result(400,"修改课程名称失败");
     }
 
+
+
     /**
      * 查询对应教师所开设的课程的教学资料
      *
@@ -91,4 +99,15 @@ public class CourseInfoController {
     }
 
 
+    /**
+     *     根据课程id查询教师下载课程作业页面信息
+     *     TdownloadPageDto
+     */
+    @GetMapping("/findListDownloadFolder")
+    public List<TdownloadPageDto> findListDownloadFolder(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        int userInfoId = Integer.parseInt(session.getAttribute("userInfoId").toString());
+        List<TdownloadPageDto> tdownloadPageDtoList = courseInfoService.findListDownloadFolder(userInfoId);
+        return tdownloadPageDtoList;
+    }
 }
