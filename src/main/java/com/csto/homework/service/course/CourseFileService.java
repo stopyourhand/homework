@@ -1,5 +1,6 @@
 package com.csto.homework.service.course;
 
+import com.csto.homework.entity.course.CourseFile;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,6 +27,12 @@ public interface CourseFileService {
      */
     int getCourseResourcesNumber(int courseInfoId, int courseFileType);
 
+    /**
+     * 学生端上传文件
+     * @param courseFile
+     * @return
+     */
+    int insertCourseFileStudent(CourseFile courseFile);
 
 
     /**
@@ -71,6 +78,13 @@ public interface CourseFileService {
      * @return
      */
     int deleteCourseFileById(int courseFileId);
+
+    /**
+     * 根据课程ID删除指定文件
+     * @param courseInfoId
+     * @return
+     */
+    int deleteCourse(int courseInfoId);
 
     //    /**
 //     * 教师下载教学文档

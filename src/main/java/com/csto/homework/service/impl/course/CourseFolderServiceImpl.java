@@ -60,7 +60,15 @@ public class CourseFolderServiceImpl implements CourseFolderService {
      * @param courseClass
      * @return
      */
-    public List<Map> listFolderName(int courseInfoId,String courseClass){
-        return courseFolderMapper.listFolderName(courseInfoId,courseClass);
+    public List<Map> listFolderName(String courseName,String courseClass){
+        return courseFolderMapper.listFolderName(courseName,courseClass);
+    }
+    /**
+     * 根据课程ID删除指定文件
+     * @param courseInfoId
+     * @return
+     */
+    public int deleteCourse(@Param("courseInfoId") int courseInfoId){
+        return courseFolderMapper.deleteCourse(courseInfoId);
     }
 }

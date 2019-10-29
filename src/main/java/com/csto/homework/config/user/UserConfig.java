@@ -1,5 +1,6 @@
 package com.csto.homework.config.user;
 
+import com.csto.homework.entity.course.CourseFile;
 import com.csto.homework.entity.user.UserInfo;
 import com.csto.homework.entity.user.UserLogin;
 import org.springframework.context.annotation.Bean;
@@ -22,5 +23,10 @@ public class UserConfig {
     @Bean("UserInfo")
     public UserInfo getUserInfo(){
         return new UserInfo();
+    }
+
+    @Bean("CourseFile")
+    public CourseFile getCourseFile(){
+        return new CourseFile();
     }
 }

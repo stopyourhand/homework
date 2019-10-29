@@ -3,8 +3,11 @@ package com.csto.homework.service.impl.user;
 import com.csto.homework.entity.user.UserLogin;
 import com.csto.homework.mapper.user.UserLoginMapper;
 import com.csto.homework.service.user.UserLoginService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 /**
  * @Author czd
@@ -24,6 +27,15 @@ public class UserLoginServiceImpl implements UserLoginService {
      */
     public String getUserPassword(String account){
         return userLoginMapper.getUserPassword(account);
+    }
+
+    /**
+     * 根据用户账号获取登录的用户类型 userType 1:教师 2:学生
+     * @param account
+     * @return
+     */
+    public Map<String,Integer> getUserTypeAndId(String account){
+        return userLoginMapper.getUserTypeAndId(account);
     }
 
     /**

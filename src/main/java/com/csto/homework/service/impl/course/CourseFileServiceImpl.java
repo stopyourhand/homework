@@ -1,5 +1,6 @@
 package com.csto.homework.service.impl.course;
 
+import com.csto.homework.entity.course.CourseFile;
 import com.csto.homework.mapper.course.CourseFileMapper;
 import com.csto.homework.service.course.CourseFileService;
 import org.apache.ibatis.annotations.Param;
@@ -137,6 +138,15 @@ public class CourseFileServiceImpl implements CourseFileService {
     }
 
     /**
+     * 根据课程ID删除指定文件
+     * @param courseInfoId
+     * @return
+     */
+    public int deleteCourse(int courseInfoId){
+        return courseFileMapper.deleteCourse(courseInfoId);
+    }
+
+    /**
      * 修改文档名称
      * @param courseFileId 文档id
      * @param courseFileName 修改文档名称
@@ -145,6 +155,15 @@ public class CourseFileServiceImpl implements CourseFileService {
     @Override
     public int updateCourseFileName(int courseFileId, String courseFileName) {
         return courseFileMapper.updateCourseFileName(courseFileId,courseFileName);
+    }
+    /**
+     * 学生端上传文件
+     * @param courseFile
+     * @return
+     */
+    @Override
+    public int insertCourseFileStudent(CourseFile courseFile){
+        return courseFileMapper.insertCourseFileStudent(courseFile);
     }
 
     /**

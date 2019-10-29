@@ -2,6 +2,8 @@ package com.csto.homework.controller.teacher;
 
 import com.csto.homework.dto.Result;
 import com.csto.homework.service.course.CourseFileService;
+import com.csto.homework.service.course.CourseFolderService;
+import com.csto.homework.service.course.CourseInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,7 +20,13 @@ import java.util.List;
 @RequestMapping(value = "/teacher/courseFile")
 public class CourseFileController {
     @Autowired
-    CourseFileService courseFileService;
+    private CourseFileService courseFileService;
+
+    @Autowired
+    private CourseFolderService courseFolderService;
+
+    @Autowired
+    private CourseInfoService courseInfoService;
 
     /**
      * 教师上传文件
@@ -69,6 +77,29 @@ public class CourseFileController {
 
         return new Result<>(200,"删除成功");
     }
+
+    /**
+     * 删除指定课程
+     * @param courseInfoId
+     * @return
+     */
+    @DeleteMapping("/deleteCourse")
+    public Result deleteCourse(@RequestParam("courseInfoId") int courseInfoId){
+        if (courseInfoId < 0){
+            return new Result(400,"课程id有误");
+        }
+
+        int FileResult = courseFileService.deleteCourse(courseInfoId);
+        int folderResult = courseFolderService.deleteCourse(courseInfoId);
+        int InfoResult = courseInfoService.deleteCourse(courseInfoId);
+
+        if (InfoResult <= 0 || folderResult <= 0 || FileResult <= 0){
+            return new Result(500,"删除错误");
+        }
+        return new Result(200,"删除成功");
+    }
+
+
 
     /**
      * 教师修改教学文档信息

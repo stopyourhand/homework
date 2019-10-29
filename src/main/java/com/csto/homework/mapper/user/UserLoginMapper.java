@@ -2,6 +2,7 @@ package com.csto.homework.mapper.user;
 
 import com.csto.homework.entity.user.UserLogin;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Map;
 
@@ -20,6 +21,13 @@ public interface UserLoginMapper {
      * @return
      */
     String getUserPassword(String account);
+
+    /**
+     * 根据用户账号获取登录的用户类型 userType 1:教师 2:学生
+     * @param account
+     * @return
+     */
+    Map<String,Integer> getUserTypeAndId(@Param("account") String account);
 
     /**
      * 添加新的用户到数据库中

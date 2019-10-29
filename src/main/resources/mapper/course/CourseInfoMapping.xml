@@ -4,7 +4,7 @@
 
     <!--根据老师姓名和课程名称获取对应课程信息列表-->
     <select id="listCourseBySearch"  resultType="Map">
-        SELECT course_info_id AS courseInfoId,course_name AS courseName,user_real_name AS userRealName
+        SELECT course_info_id AS courseInfoId,course_name AS courseName,user_real_name AS teacherName
         FROM homework_course_info AS course,homework_user_info AS  users
         WHERE course.user_info_id = users.user_info_id
         <if test="courseName != null">
@@ -56,6 +56,11 @@
     <!--int deleteCourseById(int courseInfoId);-->
     <delete id="deleteCourseById" parameterType="int">
         DELETE FROM home_course_info WHERE course_info_id = #{courseInfoId}
+    </delete>
+
+    <!--根据课程ID删除指定文件-->
+    <delete id="deleteCourse" parameterType="Integer">
+        DELETE FROM homework_course_info WHERE course_info_id = #{courseInfoId}
     </delete>
 
 </mapper>

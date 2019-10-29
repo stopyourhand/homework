@@ -16,6 +16,12 @@
               WHERE login_account = #{loginAccount}
     </select>
 
+    <!--根据用户账号获取登录的用户类型 userType 1:教师 2:学生-->
+    <select id="getUserTypeAndId" resultType="Map">
+        SELECT user_info_id AS userInfoId,login_user_type AS userType
+              FROM homework_user_login WHERE login_account = #{account}
+    </select>
+
     <!--添加新的用户到数据库中-->
     <insert id="insertUserLogin" parameterType="com.csto.homework.entity.user.UserLogin">
         INSERT INTO homework_user_login(login_account,login_password,login_user_type,user_info_id)

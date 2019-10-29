@@ -4,6 +4,7 @@ import com.csto.homework.entity.course.CourseInfo;
 import com.csto.homework.entity.user.UserLogin;
 import com.csto.homework.mapper.course.CourseInfoMapper;
 import com.csto.homework.service.course.CourseInfoService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -85,5 +86,14 @@ public class CourseInfoServiceImpl implements CourseInfoService {
     @Override
     public List<Map<String,String>> listCourseBySearch(String courseName,String teacherName){
         return courseInfoMapper.listCourseBySearch(courseName,teacherName);
+    }
+
+    /**
+     * 根据课程ID删除指定文件
+     * @param courseInfoId
+     * @return
+     */
+    public int deleteCourse(int courseInfoId){
+        return courseInfoMapper.deleteCourse(courseInfoId);
     }
 }

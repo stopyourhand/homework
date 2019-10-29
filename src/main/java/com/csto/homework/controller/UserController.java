@@ -7,10 +7,7 @@ import com.csto.homework.service.user.UserLoginService;
 import com.csto.homework.util.InterfaceAnalysisUtil;
 import com.csto.homework.util.SpringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -61,6 +58,7 @@ public class UserController {
             resultMap.put("msg", "密码不能为空，请重新输入密码!");
             return resultMap;
         }
+        HttpSession session = request.getSession();
 
         //从数据库中获取用户输入账号对应的密码
         String userPassWord = userLoginService.getUserPassword(account);
@@ -110,9 +108,10 @@ public class UserController {
                     resultMap.put("judge", false);
                     resultMap.put("msg", "数据库插入信息错误!");
                 }
-                HttpSession session = request.getSession();
+
                 session.setAttribute("account",account);
 
+                resultMap.put("userInfoId",account);
                 resultMap.put("judge", true);
                 resultMap.put("msg", "登录成功!");
 
@@ -130,10 +129,19 @@ public class UserController {
 
         //判断用户密码是否正确，依次来判断是否登录成功
         if (passWord.equals(userPassWord)) {
-            HttpSession session = request.getSession();
             session.setAttribute("account",account);
+
+            //根据用户账号获取对应的登录对象 userType 1:教师 2:学生
+            Map<String,Integer> parameterMap = userLoginService.getUserTypeAndId(account);
+            //获取用户类型和用户id
+            Integer userType =  parameterMap.get("userType");
+//            Integer userInfoId = parameterMap.get("Id").intValue();
+
+            resultMap.put("userInfoId",account);
+            resultMap.put("usertype",userType);
             resultMap.put("judge", true);
             resultMap.put("msg", "登录成功!");
+
             return resultMap;
         }
 
@@ -146,7 +154,7 @@ public class UserController {
      * @param httpServletRequest
      * @return
      */
-    @PostMapping(value = "/exit")
+    @GetMapping(value = "/exit")
     public Map exit(HttpServletRequest httpServletRequest) {
         //保存返回给前端信息的hashMap
         Map resultMap = new HashMap<>(16);

@@ -23,12 +23,12 @@ public class DownloadUtil {
      * @param courseFileService 文件操作服务层
      * @return
      */
-    public static Result downloadFile(HttpServletResponse response, List<Integer> idList,
+    public static Result downloadFile(HttpServletResponse response, List<String> idList,
                                       String realPath, CourseFileService courseFileService) throws UnsupportedEncodingException {
         //获取资源的数量长度
         int length = idList.size();
         for (int index = 0; index < length; index++) {
-            int courseFileId = idList.get(index);
+            int courseFileId = Integer.parseInt(idList.get(index));
             //获取当前资源名称
             String fileName = courseFileService.getFileCodeByCourseFileId(courseFileId);
             if (fileName != null) {
@@ -58,7 +58,7 @@ public class DownloadUtil {
                         }
 
                     } catch (Exception e) {
-                        return new Result(500, "文件下载失败");
+                        return new Result(500, "下载失败");
                     } finally {
                         //关闭流
                         try {
@@ -79,7 +79,7 @@ public class DownloadUtil {
             }
 
         }
-        return new Result(200, "文件下载成功");
+        return new Result(200, "下载成功");
 
     }
 }

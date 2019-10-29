@@ -55,4 +55,11 @@ public interface CourseInfoMapper {
     //删除课程
     int deleteCourseById(int courseInfoId);
 
+    /**
+     * 根据课程ID删除指定文件
+     * @param courseInfoId
+     * @return
+     */
+    int deleteCourse(@Param("courseInfoId") int courseInfoId);
+
 }

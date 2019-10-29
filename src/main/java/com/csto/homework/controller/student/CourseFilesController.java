@@ -1,10 +1,12 @@
 package com.csto.homework.controller.student;
 
 import com.csto.homework.dto.Result;
+import com.csto.homework.entity.course.CourseFile;
 import com.csto.homework.service.course.CourseFileService;
 import com.csto.homework.service.course.CourseFolderService;
 import com.csto.homework.service.course.CourseInfoService;
 import com.csto.homework.util.DownloadUtil;
+import com.csto.homework.util.SpringUtil;
 import com.csto.homework.util.UploadUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +18,7 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author czd
@@ -43,7 +42,7 @@ public class CourseFilesController {
     @GetMapping(value = "/read")
     public Map readResources(@RequestParam("courseInfoId") int courseInfoId) {
         //用来保存返回给前端的数据的hashMap
-        Map resultMap = new HashMap<>(16);
+        Map resultMap = new LinkedHashMap(16);
 
         //判断参数传输是否有误
         if (courseInfoId < 0) {
@@ -85,7 +84,7 @@ public class CourseFilesController {
         resultMap.put("dailyWorkTemplate", dailyWorkTemplate);
 
         courseFileType = 7;
-        //从数据库中获取平时作业模板资源数量
+        //从数据库中获取平时其他(学期作业文档)
         int otherTermAssignments = courseFileService.getCourseResourcesNumber(courseInfoId, courseFileType);
         resultMap.put("otherTermAssignments", otherTermAssignments);
 
@@ -129,13 +128,13 @@ public class CourseFilesController {
     @GetMapping(value = "/download", produces = "application/json;charset=UTF-8")
     public Result downloadResources(HttpServletRequest request,
                                     HttpServletResponse response,
-                                    @RequestParam("idList") List<Integer> idList) throws UnsupportedEncodingException {
+                                    @RequestParam("idList") List<String> idList) throws UnsupportedEncodingException {
         if (idList.size() <= 0) {
             return new Result<>(400, "参数传输错误");
         }
 
         //获取资源下载路径
-        String realPath = request.getServletContext().getRealPath("/");
+        String realPath = "D://test";//request.getServletContext().getRealPath("/");
 
         Result result = DownloadUtil.downloadFile(response,idList,realPath,courseFileService);
 

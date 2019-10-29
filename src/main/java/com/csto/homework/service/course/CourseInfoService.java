@@ -62,5 +62,10 @@ public interface CourseInfoService {
      * @return
      */
     List<Map<String, String>> listCourseBySearch(String courseName, String teacherName);
-
+    /**
+     * 根据课程ID删除指定文件
+     * @param courseInfoId
+     * @return
+     */
+    int deleteCourse(int courseInfoId);
 }

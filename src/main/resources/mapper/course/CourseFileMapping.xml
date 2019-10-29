@@ -58,9 +58,20 @@
                                     VALUE (#{courseInfoId},#{courseFileName},#{courseFileCode},#{fileUploadTime},#{courseFileType})
     </insert>
 
+    <!--学生端上传文件-->
+    <insert id="insertCourseFileStudent" parameterType="com.csto.homework.entity.course.CourseFile">
+        INSERT INTO homework_course_file (course_info_id,course_file_name,course_file_code,file_upload_time,course_file_type,course_folder_id)
+                                    VALUE (#{courseInfoId},#{courseFileName},#{courseFileCode},#{fileUploadTime},#{courseFileType},#{courseFolderId})
+    </insert>
+
     <!--根据文档id删除指定文档-->
     <delete id="deleteCourseFileById" parameterType="int">
         DELETE FROM homework_course_file WHERE course_file_id = #{courseFileId}
+    </delete>
+
+    <!--根据课程ID删除指定文件-->
+    <delete id="deleteCourse" parameterType="Integer">
+        DELETE FROM homework_course_file WHERE course_info_id = #{courseInfoId}
     </delete>
 
     <!--//修改文档名称-->
