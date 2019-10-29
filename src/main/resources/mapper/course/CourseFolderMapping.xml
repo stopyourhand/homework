@@ -36,4 +36,13 @@
         SELECT course_class FROM homework_course_folder WHERE course_info_id = #{courseInfoId}
                                                               and course_folder_name = #{courseFolderName}
     </select>
+
+    <!--int findFolder(@Param("courseInfoId")int courseInfoId,-->
+    <!--@Param("courseFolderName")String courseFolderName,-->
+    <!--@Param("courseClass")String courseClass);-->
+    <select id="findFolder" resultType="int">
+        SELECT course_folder_id FROM homework_course_folder WHERE course_info_id = #{courseInfoId}
+                                                              AND course_folder_name = #{courseFolderName}
+                                                              AND course_class = #{courseClass}
+    </select>
 </mapper>

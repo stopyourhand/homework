@@ -12,7 +12,7 @@ public interface CourseFolderService {
      * @param courseClass 班级列表
      * @return 插入行数
      */
-    int createFolder(int courseInfoId, String folderName, List<String> courseClass);
+    List<String> createFolder(int courseInfoId, String folderName, List<String> courseClass);
 
     /**
      * 根据课程的id查询所有的文件夹信息（实验报告以及班级）
@@ -28,4 +28,6 @@ public interface CourseFolderService {
      * @return
      */
     List<Map> listFolderName(int courseInfoId,String courseClass);
+
+
 }

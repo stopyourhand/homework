@@ -1,8 +1,7 @@
 package com.csto.homework.service.course;
 
+import com.csto.homework.entity.course.TdownloadPageDto;
 import com.csto.homework.entity.course.CourseInfo;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -63,4 +62,9 @@ public interface CourseInfoService {
      */
     List<Map<String, String>> listCourseBySearch(String courseName, String teacherName);
 
+    /**
+     *     根据课程id查询教师下载课程作业页面信息
+     *     TdownloadPageDto
+     */
+    List<TdownloadPageDto> findListDownloadFolder(int userInfoId);
 }

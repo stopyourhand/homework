@@ -89,6 +89,6 @@ public interface CourseFileMapper {
     //    //下载教学文档的路径
 //    String findCourseFileCodeById(int courseFileId);
 
-    //根据文件名，班级，查询对应所有的文件下载路径
-    List<String> findHomewordDownloadUrl();
+    //根据文件夹id查询对应所有的文件下载路径
+    List<Map<String,String>> findHomewordDownloadUrl(int courseFolderId);
 }

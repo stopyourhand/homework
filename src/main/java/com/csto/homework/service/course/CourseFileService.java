@@ -95,6 +95,6 @@ public interface CourseFileService {
      *                              String courseFolderName, String courseClass
      * @return
      */
-    int downloadHomewordFile(HttpServletResponse response)throws IOException ;
+    boolean downloadHomewordFile(HttpServletResponse response,int courseFolderId, String courseFolderName)throws IOException ;
 
 }

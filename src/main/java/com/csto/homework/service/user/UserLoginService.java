@@ -1,7 +1,10 @@
 package com.csto.homework.service.user;
 
 import com.csto.homework.entity.user.UserLogin;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 /**
  * 处理用户登录的服务层
@@ -18,6 +21,13 @@ public interface UserLoginService {
      * @return
      */
     String getUserPassword(String account);
+
+    /**
+     * 根据用户账号获取登录的用户类型 userType 1:教师 2:学生
+     * @param account
+     * @return
+     */
+    UserLogin getUserTypeAndId(String account);
 
     /**
      * 添加新的用户到数据库中
