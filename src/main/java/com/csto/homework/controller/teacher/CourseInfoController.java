@@ -1,18 +1,16 @@
 package com.csto.homework.controller.teacher;
 
 import com.csto.homework.dto.Result;
-import com.csto.homework.entity.course.TdownloadPageDto;
 import com.csto.homework.entity.course.CourseInfo;
+import com.csto.homework.entity.course.TdownloadPageDto;
 import com.csto.homework.service.course.CourseInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.security.cert.X509Certificate;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * 教师对增删课程的操作
@@ -31,7 +29,7 @@ public class CourseInfoController {
      * @return 提示结果
      */
     @PostMapping("/createCourse")
-    public Result createCourse(HttpServletRequest request,String courseName){
+    public Result createCourse(HttpServletRequest request, String courseName){
         HttpSession session = request.getSession();
         int userInfoId = Integer.parseInt(session.getAttribute("userInfoId").toString());
         CourseInfo courseInfo = new CourseInfo();
@@ -80,6 +78,8 @@ public class CourseInfoController {
         }
         return new Result(400,"修改课程名称失败");
     }
+
+
 
     /**
      * 查询对应教师所开设的课程的教学资料

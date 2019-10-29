@@ -126,4 +126,26 @@ public class CourseFileController {
         courseFileService.downloadHomewordFile(response,courseFolderId,courseFolderName);
         return true;
     }
+
+    /**
+     * 删除指定课程
+     * @param courseInfoId
+     * @return
+     */
+    @DeleteMapping("/deleteCourse")
+    public Result deleteCourse(@RequestParam("courseInfoId") int courseInfoId){
+        if (courseInfoId < 0){
+            return new Result(400,"课程id有误");
+        }
+
+        int FileResult = courseFileService.deleteCourse(courseInfoId);
+        int folderResult = courseFolderService.deleteCourse(courseInfoId);
+        int InfoResult = courseInfoService.deleteCourse(courseInfoId);
+
+        if (InfoResult <= 0 || folderResult <= 0 || FileResult <= 0){
+            return new Result(500,"删除错误");
+        }
+        return new Result(200,"删除成功");
+    }
+
 }

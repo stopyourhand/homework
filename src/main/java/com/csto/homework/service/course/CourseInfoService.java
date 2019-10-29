@@ -1,7 +1,9 @@
 package com.csto.homework.service.course;
 
-import com.csto.homework.entity.course.TdownloadPageDto;
 import com.csto.homework.entity.course.CourseInfo;
+import com.csto.homework.entity.course.TdownloadPageDto;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -61,6 +63,12 @@ public interface CourseInfoService {
      * @return
      */
     List<Map<String, String>> listCourseBySearch(String courseName, String teacherName);
+    /**
+     * 根据课程ID删除指定文件
+     * @param courseInfoId
+     * @return
+     */
+    int deleteCourse(int courseInfoId);
 
     /**
      *     根据课程id查询教师下载课程作业页面信息

@@ -1,7 +1,6 @@
 package com.csto.homework.controller.teacher;
 
 import com.csto.homework.dto.Result;
-import com.csto.homework.service.course.CourseFileService;
 import com.csto.homework.service.course.CourseFolderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

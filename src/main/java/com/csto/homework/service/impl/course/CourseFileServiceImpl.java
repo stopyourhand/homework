@@ -5,15 +5,16 @@ import com.csto.homework.mapper.course.CourseFileMapper;
 import com.csto.homework.service.course.CourseFileService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -152,15 +153,6 @@ public class CourseFileServiceImpl implements CourseFileService {
     }
 
     /**
-     * 根据课程ID删除指定文件
-     * @param courseInfoId
-     * @return
-     */
-    public int deleteCourse(int courseInfoId){
-        return courseFileMapper.deleteCourse(courseInfoId);
-    }
-
-    /**
      * 修改文档名称
      * @param courseFileId 文档id
      * @param courseFileName 修改文档名称
@@ -169,15 +161,6 @@ public class CourseFileServiceImpl implements CourseFileService {
     @Override
     public int updateCourseFileName(int courseFileId, String courseFileName) {
         return courseFileMapper.updateCourseFileName(courseFileId,courseFileName);
-    }
-    /**
-     * 学生端上传文件
-     * @param courseFile
-     * @return
-     */
-    @Override
-    public int insertCourseFileStudent(CourseFile courseFile){
-        return courseFileMapper.insertCourseFileStudent(courseFile);
     }
 
 
@@ -221,5 +204,24 @@ public class CourseFileServiceImpl implements CourseFileService {
         zos.close();
         System.out.println("--------------------------下载完成");
         return true;
+    }
+
+    /**
+     * 根据课程ID删除指定文件
+     * @param courseInfoId
+     * @return
+     */
+    public int deleteCourse(int courseInfoId){
+        return courseFileMapper.deleteCourse(courseInfoId);
+    }
+
+    /**
+     * 学生端上传文件
+     * @param courseFile
+     * @return
+     */
+    @Override
+    public int insertCourseFileStudent(CourseFile courseFile){
+        return courseFileMapper.insertCourseFileStudent(courseFile);
     }
 }

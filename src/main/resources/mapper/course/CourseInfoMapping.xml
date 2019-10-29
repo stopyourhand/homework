@@ -58,6 +58,10 @@
         DELETE FROM home_course_info WHERE course_info_id = #{courseInfoId}
     </delete>
 
+    <!--根据课程ID删除指定文件-->
+    <delete id="deleteCourse" parameterType="Integer">
+        DELETE FROM homework_course_info WHERE course_info_id = #{courseInfoId}
+    </delete>
 
     <!--/**-->
     <!--*     根据课程id查询教师下载课程作业页面信息-->
