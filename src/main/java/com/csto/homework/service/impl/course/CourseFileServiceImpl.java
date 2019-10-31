@@ -92,6 +92,7 @@ public class CourseFileServiceImpl implements CourseFileService {
      */
     @Override
     public int uploadFile(int courseInfoId, MultipartFile courseFile, int courseFileType) throws IOException {
+        System.out.println("-------kaishi---------");
         //获取文件原名称
         String courseFileName = courseFile.getOriginalFilename();
         //截取文件后缀名
@@ -100,7 +101,9 @@ public class CourseFileServiceImpl implements CourseFileService {
         String Code = Math.abs(UUID.randomUUID().hashCode()) + "";
         String courseFileCode = Code + Math.abs(courseFileName.hashCode())+suffix;
         //获取tomcat路径，用于上传文件
-        String path=System.getProperty("catalina.home") + "/resource/";
+        //String path=System.getProperty("catalina.home") + "/resource/";
+        System.out.println("-----chaunj");
+        String path = "D://test/";
         File file = new File(path);
         //判断文件路径是否存在，不存在则创建文件路径
         if(!file.exists())
@@ -127,8 +130,10 @@ public class CourseFileServiceImpl implements CourseFileService {
         System.out.println(courseFileCode);
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println("======"+courseFileType);
         String fileUploadTime = simpleDateFormat.format(date);
         return courseFileMapper.insertCourseFile(courseInfoId,courseFileName,courseFileCode,fileUploadTime,courseFileType);
+
     }
 
     //    /**
@@ -186,7 +191,8 @@ public class CourseFileServiceImpl implements CourseFileService {
 //        response.setHeader("Content-Disposition", "attachment;filename=1.zip");
 //        response.setContentType("application/vnd.ms-excel;charset=UTF-8");
 //        response.setCharacterEncoding("UTF-8");
-        String path="C:\\Users\\ASUS\\AppData\\Local\\Temp\\tomcat.2351508898301915500.8080\\resource\\";//System.getProperty("catalina.home") + "/resource/";
+        //String path="C:\\Users\\ASUS\\AppData\\Local\\Temp\\tomcat.2351508898301915500.8080\\resource\\";//System.getProperty("catalina.home") + "/resource/";
+        String path = "D://test/";
         ZipOutputStream zos = new ZipOutputStream(response.getOutputStream());
         for(Map<String,String> homewordFile:downloadUrlMap) {
             zos.putNextEntry(new ZipEntry(homewordFile.get("courseFileName")));

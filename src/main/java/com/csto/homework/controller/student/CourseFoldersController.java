@@ -22,6 +22,7 @@ import java.util.UUID;
  * @Date:createed in 2019/10/20
  * @Version: V1.0
  */
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/student/courseFolder")
 public class CourseFoldersController {

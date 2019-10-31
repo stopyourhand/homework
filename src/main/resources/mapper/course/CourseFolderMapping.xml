@@ -11,7 +11,7 @@
         INSERT INTO homework_course_folder (course_info_id,course_folder_name,course_class,folder_create_time)
         VALUES
         <foreach collection="courseClass" item="item" index="index" separator=",">
-            (#{userInfoId}, #{courseFolderName}, #{item}, #{folderCreateTime})
+            (#{userInfoId}, #{folderName}, #{item}, #{folderCreateTime})
         </foreach>
     </insert>
 
@@ -22,10 +22,14 @@
     </select>
 
     <!--根据课程编号和班级代号获取文件夹名称列表-->
-    <select id="listFolderName" resultType="Map">
-      SELECT course_folder_id AS courseFolderId,course_folder_name AS courseFolderName
+    <!--根据课程编号和班级代号获取文件夹名称列表-->
+    <select  id="listFolderName" resultType="Map">
+      SELECT course_info_id AS courseInfoId,course_folder_id AS courseFolderId,course_folder_name AS courseFolderName
           FROM homework_course_folder
-              WHERE course_info_id = #{courseInfoId}
+              WHERE course_info_id = (
+                                      SELECT course_info_id FROM homework_course_info
+                                            WHERE course_name = #{courseName}
+                                      )
                 AND course_class = #{courseClass}
     </select>
 

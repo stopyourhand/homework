@@ -16,6 +16,7 @@ import java.util.List;
  * 教师对课程文件的操作
  * @author fjw
  */
+//@CrossOrigin(origins = "http://192.168.43.173:8080", maxAge = 3600)
 @RestController
 @RequestMapping(value = "/teacher/courseFile")
 public class CourseFileController {
@@ -38,11 +39,10 @@ public class CourseFileController {
     @CrossOrigin
     @PostMapping("/fileUpload")
     public Result fileUpload(@RequestParam("courseInfoId")int courseInfoId,
-                             @RequestParam("courseFile") MultipartFile courseFile,
+                             MultipartFile file,
                              @RequestParam("courseFileType")int courseFileType){
-        System.out.println("上传文件");
         try{
-            int resultCode = courseFileService.uploadFile(courseInfoId,courseFile,courseFileType);
+            int resultCode = courseFileService.uploadFile(courseInfoId,file,courseFileType);
             if(resultCode == 1)
                 return new Result(200,"文件上传成功");
         }catch (Exception e){
@@ -58,7 +58,7 @@ public class CourseFileController {
      * @return 删除行数
      */
     @DeleteMapping("/deleteDocument")
-    public Result deleteDocument(@RequestParam(value = "idList") List<Integer> idList){
+    public Result deleteDocument(@RequestParam(value = "idList") List<String> idList){
         //获取要删除的文档的id列表
         int length = idList.size();
         if (length <= 0){
@@ -66,8 +66,8 @@ public class CourseFileController {
         }
 
         for (int index = 0; index < length; index++){
-            int fileId = idList.get(index);
-
+            String id = idList.get(index);
+            int fileId = Integer.parseInt(id);
             //删除指定id的文档
             int result = courseFileService.deleteCourseFileById(fileId);
             if (result <= 0){
@@ -121,31 +121,15 @@ public class CourseFileController {
      * @return
      */
     @GetMapping(value = "/downloadHomewordFile", produces = "application/json;charset=UTF-8")
-    public boolean downloadHomewordFile(HttpServletResponse response,int courseFolderId,String courseFolderName) throws IOException {
+    public void downloadHomewordFile(HttpServletResponse response,String courseFolderId,String courseFolderName) throws IOException {
         System.out.println("开始下载");
-        courseFileService.downloadHomewordFile(response,courseFolderId,courseFolderName);
-        return true;
+        if (courseFolderId == null || "".equals(courseFolderId)){
+            return ;
+        }
+        int folderId = Integer.parseInt(courseFolderId);
+        courseFileService.downloadHomewordFile(response,folderId,courseFolderName);
     }
 
-    /**
-     * 删除指定课程
-     * @param courseInfoId
-     * @return
-     */
-    @DeleteMapping("/deleteCourse")
-    public Result deleteCourse(@RequestParam("courseInfoId") int courseInfoId){
-        if (courseInfoId < 0){
-            return new Result(400,"课程id有误");
-        }
 
-        int FileResult = courseFileService.deleteCourse(courseInfoId);
-        int folderResult = courseFolderService.deleteCourse(courseInfoId);
-        int InfoResult = courseInfoService.deleteCourse(courseInfoId);
-
-        if (InfoResult <= 0 || folderResult <= 0 || FileResult <= 0){
-            return new Result(500,"删除错误");
-        }
-        return new Result(200,"删除成功");
-    }
 
 }

@@ -37,7 +37,7 @@ public class DownloadUtil {
                     // 下载文件能正常显示中文
                     response.setHeader("content-type", "application/octet-stream");
                     response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
-                    response.setContentType("application/vnd.ms-excel;charset=UTF-8");
+                    response.setContentType("application/json;charset=UTF-8");
                     response.setCharacterEncoding("UTF-8");
 
                     //设置获取文件的输入流和缓冲流

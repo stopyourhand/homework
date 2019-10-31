@@ -16,6 +16,7 @@ import java.util.Map;
  * 教师对增删课程的操作
  * @author fjw
  */
+//@CrossOrigin
 @RestController
 @RequestMapping(value = "/teacher/courseInfo")
 public class CourseInfoController {
@@ -73,6 +74,7 @@ public class CourseInfoController {
     public Result updateCourse(@RequestParam("courseInfoId")int courseInfoId,
                                @RequestParam("courseName")String courseName){
         int resultCode = courseInfoService.updateCourseName(courseInfoId, courseName);
+        System.out.println("修改-----");
         if(resultCode == 1){
             return new Result(200,"修改课程名称成功");
         }
@@ -91,7 +93,7 @@ public class CourseInfoController {
     public Result readResources(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
-        String account = "9";//(String)session.getAttribute("account");
+        String account = (String)session.getAttribute("account");
 
         List<Map> list = courseInfoService.listCourseByAccount(Integer.parseInt(account));
 
@@ -103,7 +105,7 @@ public class CourseInfoController {
      *     根据课程id查询教师下载课程作业页面信息
      *     TdownloadPageDto
      */
-    @GetMapping("/findListDownloadFolder")
+    @GetMapping("/findListFolder")
     public List<TdownloadPageDto> findListDownloadFolder(HttpServletRequest request){
         HttpSession session = request.getSession();
         int userInfoId = Integer.parseInt(session.getAttribute("userInfoId").toString());
