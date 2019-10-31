@@ -25,6 +25,7 @@ import java.util.*;
  * @Date:createed in 2019/10/20
  * @Version: V1.0
  */
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/student/courseFile")
 public class CourseFilesController {
@@ -88,8 +89,8 @@ public class CourseFilesController {
         int otherTermAssignments = courseFileService.getCourseResourcesNumber(courseInfoId, courseFileType);
         resultMap.put("otherTermAssignments", otherTermAssignments);
 
-        resultMap.put("code", 200);
-        resultMap.put("msg", "查询成功");
+//        resultMap.put("code", 200);
+////        resultMap.put("msg", "查询成功");
 
         return resultMap;
     }
